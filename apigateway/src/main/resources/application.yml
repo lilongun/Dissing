@@ -21,7 +21,7 @@ zuul:
     order:
       path: /board/**
       sensitiveHeaders:
-      serviceId: boardserver
+      serviceId: board
   add-proxy-headers: true
 
 security:
