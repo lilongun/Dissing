@@ -18,27 +18,17 @@ import java.util.List;
 public class PostInfo {
     private Integer id;
 
-    private String orderNumber;
+    private Integer ownerId;
 
-    private String product;
+    private Integer typeId;
 
-    private String productModel;
+    private String subject;
 
-    private Integer quantity;
+    private String content;
 
-    private String status;
+    private Date createTime;
 
-    private String qualityCheck;
-
-    private String shipping;
-
-    private Date createdDate;
-
-    private String createdBy;
-
-    private Date lastModifiedDate;
-
-    private String lastModifiedBy;
+    private Date updateTime;
 
     private Boolean isDeleted;
 

@@ -26,14 +26,12 @@ public class BoardController {
         return "hello!";
     }
 
-    @RequestMapping(value="/queryList", method=RequestMethod.GET)
+    @RequestMapping(value="/queryPostList", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> queryList(@RequestParam(required = false) String orderNumber,
-                                         @RequestParam(required = false) Integer id,
+    public Map<String, Object> queryPostList(@RequestParam(required = false) Integer typeId,
                                          @RequestParam(required = false) Integer pageNum){
         PostInfo postInfo = new PostInfo();
-        postInfo.setOrderNumber(orderNumber);
-        postInfo.setId(id);
+        postInfo.setTypeId(typeId);
         int pageSize = 10;
         if(pageNum == null){
             pageNum = 1;
@@ -47,7 +45,6 @@ public class BoardController {
     @ResponseBody
     @PreAuthorize("hasAuthority('admin')")
     public String savePost(@RequestBody PostInfo postInfo){
-        JSONArray array = JSONArray.parseArray(postInfo.getProduct());
         int result = boardService.savePost(postInfo);
         if(result == 1) {
             return "success";
@@ -59,7 +56,6 @@ public class BoardController {
     @ResponseBody
     @PreAuthorize("hasAuthority('admin')")
     public String updatePost(@RequestBody PostInfo postInfo){
-        JSONArray array = JSONArray.parseArray(postInfo.getProduct());
         int result = boardService.updatePost(postInfo);
         if(result == 1) {
             return "success";

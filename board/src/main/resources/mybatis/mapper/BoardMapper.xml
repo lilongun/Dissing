@@ -1,148 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dissing.board.dao.BoardDao">
-     <resultMap type="cn.dissing.board.domain.PostInfo" id="order">
+     <resultMap type="cn.dissing.board.domain.PostInfo" id="post">
         <id property="id" column="id"/>
-        <result property="orderNumber" column="order_number"/>
-         <result property="product" column="product"/>
-        <result property="productModel" column="product_model"/>
-        <result property="quantity" column="quantity"/>
-        <result property="status" column="status"/>
-        <result property="qualityCheck" column="quality_check"/>
-        <result property="shipping" column="shipping"/>
-         <result property="createdDate" column="created_date"/>
-         <result property="createdBy" column="created_by"/>
-         <result property="lastModifiedDate" column="last_modified_date"/>
-         <result property="lastModifiedBy" column="last_modified_by"/>
+        <result property="ownerId" column="owner_id"/>
+         <result property="typeId" column="type_id"/>
+        <result property="subject" column="subject"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
      </resultMap>
 
-    <select id="queryPosts" resultMap="order">
-        select id,order_number,product,product_model,quantity,status,shipping,created_date,created_by,last_modified_date,last_modified_by,quality_check
-        from order_info where is_deleted=0
-        <if test="orderNumber != null">
-           and order_number=#{orderNumber}
+    <select id="queryPosts" resultMap="post">
+        select id,owner_id,type_id,subject,content,create_time,update_time,is_deleted
+        from post_info where is_deleted=0
+        <if test="ownerId != null">
+           and owner_id=#{ownerId}
         </if>
-        <if test="product != null">
-            and product = #{product}
+        <if test="typeId != null">
+            and type_id = #{typeId}
         </if>
-        <if test="productModel != null">
-            and product_model=#{productModel}
+        <if test="subject != null">
+            and subject=#{subject}
         </if>
-        <if test="quantity != null">
-            and quantity=#{quantity}
+        <if test="content != null">
+            and content=#{content}
         </if>
-        <if test="status != null">
-            and status=#{status}
-        </if>
-        <if test="shipping != null">
-            and shipping=#{shipping}
-        </if>
-        <if test="id != null">
-            and id=#{id}
-        </if>
+        order by update_time desc
         limit #{beginPos},#{pageSize}
     </select>
 
     <insert id="savePost">
-        insert into order_info
+        insert into post_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="orderNumber != null">
-                order_number,
+            <if test="ownerId != null">
+                owner_id,
             </if>
-            <if test="product != null">
-                product,
+            <if test="typeId != null">
+                type_id,
             </if>
-            <if test="productModel != null">
-                product_model,
+            <if test="subject != null">
+                subject,
             </if>
-            <if test="quantity != null">
-                quantity,
+            <if test="content != null">
+                content,
             </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="shipping != null">
-                shipping,
-            </if>
-            <if test="qualityCheck != null">
-                quality_check,
-            </if>
+            create_time,
+            update_time
         </trim>
         <trim prefix=" values(" suffix=")" suffixOverrides=",">
-            <if test="orderNumber != null">
-                #{orderNumber},
+            <if test="ownerId != null">
+                #{owner_id},
             </if>
-            <if test="product != null">
-                #{product},
+            <if test="typeId != null">
+                #{type_id},
             </if>
-            <if test="productModel != null">
-                #{productModel},
+            <if test="subject != null">
+                #{subject},
             </if>
-            <if test="quantity != null">
-                #{quantity},
+            <if test="content != null">
+                #{content},
             </if>
-            <if test="status != null">
-                #{status},
-            </if>
-            <if test="shipping != null">
-                #{shipping},
-            </if>
-            <if test="qualityCheck != null">
-                #{qualityCheck},
-            </if>
+            now(),
+            now()
         </trim>
     </insert>
 
     <update id="updatePost">
-        update order_info
+        update post_info
         <set>
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
-            <if test="product != null">
-                product = #{product},
+            <if test="ownerId != null">
+                owner_id = #{ownerId},
             </if>
-            <if test="productModel != null">
-                product_model = #{productModel},
+            <if test="typeId != null">
+                type_id = #{typeId},
             </if>
-            <if test="quantity != null">
-                quantity = #{quantity},
+            <if test="subject != null">
+                subject = #{subject},
             </if>
-            <if test="status != null">
-                status = #{status},
-            </if>
-            <if test="shipping != null">
-                shipping = #{shipping},
-            </if>
-            <if test="qualityCheck != null">
-                quality_check = #{qualityCheck},
-            </if>
-            <if test="orderNumber != null">
-                order_number = #{orderNumber},
+            <if test="content != null">
+                content = #{content},
             </if>
         </set>
         where id=#{id}
     </update>
 
     <select id="queryPostsCount" resultType="java.lang.Integer">
-        select count(1) from order_info where is_deleted=0
-        <if test="orderNumber != null">
-            and order_number=#{orderNumber}
+        select count(1) from post_info where is_deleted=0
+        <if test="ownerId != null">
+            and owner_id=#{ownerId}
         </if>
-        <if test="product != null">
-            and product = #{product}
+        <if test="typeId != null">
+            and type_id = #{typeId}
         </if>
-        <if test="productModel != null">
-            and product_model=#{productModel}
+        <if test="subject != null">
+            and subject=#{subject}
         </if>
-        <if test="quantity != null">
-            and quantity=#{quantity}
-        </if>
-        <if test="status != null">
-            and status=#{status}
-        </if>
-        <if test="shipping != null">
-            and shipping=#{shipping}
+        <if test="content != null">
+            and content=#{content}
         </if>
     </select>
 </mapper>
