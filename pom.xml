@@ -8,6 +8,7 @@
     <module>authserver</module>
       <module>apigateway</module>
     <module>board</module>
+      <module>webproject</module>
   </modules>
 
   <parent>
