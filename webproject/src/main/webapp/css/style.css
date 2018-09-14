@@ -272,11 +272,12 @@ h3.m_1 a:hover{
 	background:#75B8C9;
 }
 .section1{
-	width:51%;
+	/*width:51%;*/
+	width: 23%;
 	margin:0 auto;
 }
 .span_2_of_about {
-	width:66.1%;
+	/*width:66.1%;*/
 }
 .cont1{
 	display: block;
@@ -284,7 +285,7 @@ h3.m_1 a:hover{
 	margin: 1% 0 1% 0;
 }
 .span_1_of_about {
-	width:32.2%;
+	/*width:32.2%;*/
 }
 .rsidebar {
 	display: block;
