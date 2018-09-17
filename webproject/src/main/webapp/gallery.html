@@ -24,14 +24,20 @@
 			});
 		});
 		</script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="jquery.confirm/jquery.confirm.js"></script>
+<link rel="stylesheet" type="text/css" href="jquery.confirm/jquery.confirm.css" />
 </head>
 <body>
 <div class="index-banner1">
   <div class="header-top">	
 	<div class="wrap">
-   		<div class="logo">
-			<a href="index.html"><img src="images/logo.png" alt=""/></a>
-		</div>	
+		<div class="logo">
+			<a href="index.html">
+				<!--<img src="images/logo.png" alt=""/>-->
+				<font size="6px" color="white">Dissing</font>
+			</a>
+		</div>
 		<div class="menu">																
 			<a href="#" class="right_bt" id="activator"><img src="images/nav_icon.png" alt=""></a>
 				<div class="box" id="box">
@@ -72,8 +78,49 @@
 									
 									});
 							</script>
-			         </div> 	
-			         <div class="clear"></div>		
+			         </div>
+
+		<div id="loginBox" style="float:right;margin-top: 11px;">
+
+		</div>
+
+		<script type="text/javascript">
+            if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+                $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+            }else{
+				/*
+				 $('#loginBox').html('<ul><li class="dropdown">' +
+				 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+				 '</li></ul>');
+				 */
+                $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                    ' <font color="white">[</font><a href="javascript:logout()"><font size="4px" color="white">注销</font></a><font color="white">]</font>');
+            }
+
+            function logout(){
+                $.confirm({
+                    'title'		: '提示',
+                    'message'	: '确定要注销当前用户吗？',
+                    'buttons'	: {
+                        '是'	: {
+                            'class'	: 'blue',
+                            'action': function(){
+                                $.cookie("dissing_user_name", "", {expires: -1});
+                                $.cookie("access_token", "", {expires: -1});
+                                window.location.reload();
+                            }
+                        },
+                        '否': {
+                            'class'	: 'gray',
+                            'action': function(){}
+                        }
+                    }
+                });
+
+            }
+		</script>
+		<div class="clear"></div>
 		  </div>	
 		</div>	
 	   </div>

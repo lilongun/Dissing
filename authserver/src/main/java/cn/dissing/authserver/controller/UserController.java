@@ -2,9 +2,7 @@ package cn.dissing.authserver.controller;
 
 import cn.dissing.authserver.domain.SysUser;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -30,6 +28,14 @@ public class UserController {
         }else {
             System.out.println("It does not match");
         }
+        return "";
+    }
+
+    @RequestMapping(value="/registerUser", method = RequestMethod.PUT)
+    public String registerUser(@RequestBody SysUser sysUser) {
+        String hashed = BCrypt.hashpw(sysUser.getPassword(), BCrypt.gensalt());
+        System.out.println(hashed);
+
         return "";
     }
 }

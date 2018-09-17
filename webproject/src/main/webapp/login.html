@@ -14,7 +14,7 @@
 <body>
 <script type="text/javascript">
 	if($.cookie("access_token") != null){
-		window.location.href = "gallery.html";
+		window.location.href = ".html";
 	}
 </script>
 <div class="index-banner1">
@@ -108,9 +108,9 @@
 						if(name == ''){
 							$.confirm({
 								//'title'		: 'Delete Confirmation',
-								'title'		: 'Tips',
+								'title'		: '提示',
 								//'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
-								'message'	: 'Please input name!',
+								'message'	: '请输入用户名！',
 								'buttons'	: {
 									/*'Yes'	: {
 										'class'	: 'blue',
@@ -128,9 +128,9 @@
 						}else if(password == ''){
 							$.confirm({
 								//'title'		: 'Delete Confirmation',
-								'title'		: 'Tips',
+								'title'		: '提示',
 								//'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
-								'message'	: 'Please input password!',
+								'message'	: '请输入密码！',
 								'buttons'	: {
 									/*'Yes'	: {
 										'class'	: 'blue',
@@ -160,9 +160,9 @@
 								if(data.access_token == null || data.access_token == '' || data.access_token == undefined){
 									$.confirm({
 										//'title'		: 'Delete Confirmation',
-										'title'		: 'Tips',
+										'title'		: '提示',
 										//'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
-										'message'	: 'Sorry, server exception!',
+										'message'	: '抱歉，服务器错误！',
 										'buttons'	: {
 											/*'Yes'	: {
 												'class'	: 'blue',
@@ -184,14 +184,14 @@
 								//$.cookie('access_token', 'the_value', { expires: 7 }); //有效期为7天的cookie
 								//$.cookie('access_token'); //读取cookie
 								//$.cookie('access_token', null);  //删除cookie
-								window.location.href = 'gallery.html';
+								window.location.href = 'index.html';
 							},
 							error:function(){
 								$.confirm({
 									//'title'		: 'Delete Confirmation',
-									'title'		: 'Tips',
+									'title'		: '提示',
 									//'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
-									'message'	: 'Sorry, incorrect user or password, please input again!',
+									'message'	: '抱歉，用户名或密码错误，请重新输入！',
 									'buttons'	: {
 										/*'Yes'	: {
 											'class'	: 'blue',

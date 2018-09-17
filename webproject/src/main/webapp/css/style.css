@@ -355,7 +355,7 @@ ul.list1 li a:hover{
 }
 .register_account{
 	padding:2% 0;
-	min-height:800px;
+	/*min-height:800px;*/
 }
 .register_account table td {
 	width: 100%;
@@ -2073,4 +2073,19 @@ p.m_6{
 	.menu_box_list li a {
 		font-size: 0.8125em;
 	}
-}													
+}
+
+.dropdown ul {	/* 隐藏下拉菜单 */
+	display: none;
+	position: absolute;
+}
+
+.dropdown:hover ul {  /* 下拉菜单样式 */
+	display: block;
+	min-width: 80px;
+	background: #000;
+	border-top: 0;
+	border-radius: 0 0 3px 3px;
+	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+}
