@@ -52,7 +52,7 @@ body{
 /*-----stat-header----*/
 .logo{
 	float:left;
-	margin-top: 10px;
+	margin-top: 8px;
 }
 /*--//header-welcome-note--*/
 .box{
@@ -1044,7 +1044,7 @@ p.m_6{
 	top: 30px;
 }
 .comments-area input[type="text"] {
-	padding: 7px 15px;
+	padding: 7px 0px;
 	width: 100%;
 	color: #777;
 	font-size:1em;
@@ -1055,7 +1055,7 @@ p.m_6{
 	font-family: 'Raleway', sans-serif;
 }
 .comments-area input[type="password"] {
-	padding: 7px 15px;
+	padding: 7px 0px;
 	width: 100%;
 	color: #777;
 	font-size:1em;

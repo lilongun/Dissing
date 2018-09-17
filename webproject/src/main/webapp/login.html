@@ -14,7 +14,7 @@
 <body>
 <script type="text/javascript">
 	if($.cookie("access_token") != null){
-		window.location.href = "orderlist.jsp";
+		window.location.href = "gallery.html";
 	}
 </script>
 <div class="index-banner1">
@@ -83,7 +83,7 @@
    	     <div class="wrap">
    	       <div class="abstract">
 		   	 <div class="section group" style="width:90%;">
-				<div class="comments-area" style=" position:relative;height:200px;width:300px;margin:0px auto;">
+				<div class="comments-area" style=" position:relative;height:200px;width:350px;margin:0px auto;">
 					<form>
 						<p>
 							<!--<label>Name</label>-->
@@ -98,6 +98,7 @@
 						<p>
 							<!--<input id="loginButton" type="button" value="Login">-->
 							<input id="loginButton" type="button" value="登录">
+							<input type="button" style="float:right" onclick="window.location.href='register.html'" value="立即注册">
 						</p>
 					</form>
 					<script>
@@ -146,13 +147,13 @@
 							return;
 						}
 						$.ajax({
-							url: 'http://47.254.71.40:9099/auth/oauth/token?grant_type=password&username='+ name +'&password=' + password,
+							url: 'http://localhost:9099/auth/oauth/token?grant_type=password&username='+ name +'&password=' + password,
 							dataType: "json",
 							/*username: "bonzzy",
 							password: "bonzzy",*/
 							async: false,
 							headers: {
-								"Authorization": "Basic " + btoa("bonzzy" + ":" + "bonzzy")
+								"Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
 							},
 							type: "POST",
 							success:function (data) {
@@ -179,10 +180,11 @@
 								}
 								//添加一个会话cookie，有效期到用户关闭浏览器
 								$.cookie('access_token', data.access_token);
+                                $.cookie('user_name', name);
 								//$.cookie('access_token', 'the_value', { expires: 7 }); //有效期为7天的cookie
 								//$.cookie('access_token'); //读取cookie
 								//$.cookie('access_token', null);  //删除cookie
-								window.location.href = 'orderlist.jsp';
+								window.location.href = 'gallery.html';
 							},
 							error:function(){
 								$.confirm({
