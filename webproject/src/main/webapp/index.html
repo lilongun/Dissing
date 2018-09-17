@@ -8,6 +8,7 @@
 <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <script src="js/jquery.min.js"></script>
 <script src="js/login.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
 </head>
 <body>
 	<div class="index-banner">
@@ -61,12 +62,17 @@
 							});
 					</script>
 				</div>
+				<div id="loginBox" style="float:right;margin-top: 11px;">
 
-				<div style="float:right;margin-top: 11px;">
-					<a href="login.html">
-						<font size="5px" color="white">登录</font>
-					</a>
 				</div>
+
+				<script type="text/javascript">
+					if( $.cookie("dissing_user_name") == null ) {
+                        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+                    }else{
+					    $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>');
+					}
+				</script>
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -97,19 +103,34 @@
 			</script> 	     -->
 	</div>
    	   <div class="main">
-   	     <div class="content-top">
+   	     <div id="content-top" class="content-top">
+			 <!--
    	      <div class="section1">
 				<div class="cont1 span_2_of_about">
+				-->
 					<!--<h3 class="m_1"><a href="register.html">Create a free account now</a></h3>-->
-					<a href="login.html"><div class="btn">登录</div></a>
+				<!--	<a href="login.html"><div class="btn">登录</div></a>
 				</div>
 				<div class="rsidebar span_1_of_about">
 					<!--<a href="register.html"><div class="btn">Register now</div></a>  -->
-					<a href="register.html"><div class="btn">立即注册</div></a>
+				<!--	<a href="register.html"><div class="btn">立即注册</div></a>
 			    </div>
 				<div class="clear"></div>
 		    </div>
+			-->
    	   	 </div>
+
+		 <script type="text/javascript">
+			if( $.cookie("dissing_user_name") == null ){
+			    $('#content-top').html('<div class="section1"><div class="cont1 span_2_of_about">' +
+					'<a href="login.html"><div class="btn">登录</div></a></div><div class="rsidebar span_1_of_about"> ' +
+					'<a href="register.html"><div class="btn">立即注册</div></a></div><div class="clear"></div>' +
+					'</div>');
+			}else{
+                $('#content-top').html('');
+			}
+		 </script>
+
    	   	 <div class="content-bottom">
    	   	    <!--<h2 class="m_2">Browse by Category</h2>-->
 			 <h2 class="m_2">分类浏览</h2>
