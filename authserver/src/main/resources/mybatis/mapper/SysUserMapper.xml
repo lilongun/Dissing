@@ -7,6 +7,9 @@
         <result property="password" column="password"/>
         <result property="firstName" column="first_name"/>
         <result property="lastName" column="last_name"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="address" column="address"/>
         <result property="email" column="email"/>
         <result property="imageUrl" column="image_url"/>
         <collection property="roles" column="id" select="findSysRole" ofType="com.bonzzy.authserver.domain.SysRole">
@@ -38,4 +41,122 @@
      <select id="findSysAuthority" resultMap="sysAuthority">
          select * from sys_authority sa,sys_role_authorities sra where sra.sys_role_id=#{id} and sa.id=sra.authorities_id
      </select>
+
+     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
+             insert into sys_user
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="username != null">
+                     username,
+                 </if>
+                 <if test="password != null">
+                     password,
+                 </if>
+                 <if test="nickName != null">
+                     nick_name,
+                 </if>
+                 <if test="phoneNumber != null">
+                      phone_number,
+                  </if>
+                 <if test="email != null">
+                     email,
+                 </if>
+                 <if test="address != null">
+                      address,
+                  </if>
+                 <if test="imageUrl != null">
+                      image_url,
+                  </if>
+                 <if test="username != null">
+                     created_by,
+                 </if>
+                 created_date,
+                 <if test="username != null">
+                     last_modified_by,
+                 </if>
+                 last_modified_date
+             </trim>
+             <trim prefix=" values(" suffix=")" suffixOverrides=",">
+                  <if test="username != null">
+                      #{username},
+                  </if>
+                  <if test="password != null">
+                      #{password},
+                  </if>
+                  <if test="nickName != null">
+                      #{nickName},
+                  </if>
+                  <if test="phoneNumber != null">
+                       #{phoneNumber},
+                   </if>
+                  <if test="email != null">
+                      #{email},
+                  </if>
+                  <if test="address != null">
+                       #{address},
+                   </if>
+                  <if test="imageUrl != null">
+                       #{imageUrl},
+                   </if>
+                  <if test="username != null">
+                      #{username},
+                  </if>
+                  now(),
+                  <if test="username != null">
+                      #{username},
+                  </if>
+                  now()
+             </trim>
+         </insert>
+
+         <update id="updateUser">
+             update sys_user
+             <set>
+                 <if test="username != null">
+                      username=#{username},
+                  </if>
+                  <if test="password != null">
+                      password=#{password},
+                  </if>
+                  <if test="nickName != null">
+                      nick_name=#{nickName},
+                  </if>
+                  <if test="phoneNumber != null">
+                       phone_number=#{phoneNumber},
+                   </if>
+                  <if test="email != null">
+                      email=#{email},
+                  </if>
+                  <if test="address != null">
+                       address=#{address},
+                   </if>
+                  <if test="imageUrl != null">
+                       image_url=#{imageUrl},
+                   </if>
+                  <if test="username != null">
+                      last_modified_by={username},
+                  </if>
+                  last_modified_date=now()
+             </set>
+             where id=#{id}
+         </update>
+
+         <insert id="saveUserRoles">
+              insert into sys_user_roles
+              <trim prefix="(" suffix=")" suffixOverrides=",">
+                  <if test="userId != null">
+                      sys_user_id,
+                  </if>
+                  <if test="rolesId != null">
+                      roles_id,
+                  </if>
+              </trim>
+              <trim prefix=" values(" suffix=")" suffixOverrides=",">
+                   <if test="userId != null">
+                       #{userId},
+                   </if>
+                   <if test="rolesId != null">
+                       #{rolesId},
+                   </if>
+              </trim>
+          </insert>
 </mapper>

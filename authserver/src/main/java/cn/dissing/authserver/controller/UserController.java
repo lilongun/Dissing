@@ -1,6 +1,8 @@
 package cn.dissing.authserver.controller;
 
 import cn.dissing.authserver.domain.SysUser;
+import cn.dissing.authserver.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,9 @@ import java.security.Principal;
  */
 @RestController
 public class UserController {
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/user")
     public Principal user(Principal user){
         return user;
@@ -33,9 +38,18 @@ public class UserController {
 
     @RequestMapping(value="/registerUser", method = RequestMethod.PUT)
     public String registerUser(@RequestBody SysUser sysUser) {
+        SysUser user = userService.findOneWithRolesByUsername(sysUser.getUsername());
+        if( user != null){
+            return "repeated";
+        }
         String hashed = BCrypt.hashpw(sysUser.getPassword(), BCrypt.gensalt());
         System.out.println(hashed);
-
-        return "";
+        sysUser.setPassword(hashed);
+        int result = userService.saveUser(sysUser);
+        if(result > 0){
+            System.out.println("save successed");
+            return "success";
+        }
+        return "fail";
     }
 }

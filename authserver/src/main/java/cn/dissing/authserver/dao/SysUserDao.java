@@ -1,6 +1,7 @@
 package cn.dissing.authserver.dao;
 
 import cn.dissing.authserver.domain.SysUser;
+import cn.dissing.authserver.domain.SysUserRoles;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,4 +10,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysUserDao{
     SysUser findOneWithRolesByUsername(String username);
+
+    int saveUser(SysUser sysUser);
+
+    int updateUser(SysUser sysUser);
+
+    int saveUserRoles(SysUserRoles sysUserRoles);
 }

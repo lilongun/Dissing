@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
 @Data
 public abstract class AbstractAuditingEntity implements Serializable {
@@ -15,13 +15,13 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private String createdBy;
 
     @JsonIgnore
-    private Instant createdDate = Instant.now();
+    private Date createdDate;
 
     @JsonIgnore
     private String lastModifiedBy;
 
     @JsonIgnore
-    private Instant lastModifiedDate = Instant.now();
+    private Date lastModifiedDate;
 
 
 }

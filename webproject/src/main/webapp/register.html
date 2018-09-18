@@ -113,14 +113,14 @@
     	      <h4 class="title">创建一个新账户</h4>
     		   <form>
     			 <div class="col_1_of_2 span_1_of_2">
-		   			 <div><input type="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}"></div>
-					 <div><input type="text" value="昵称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '昵称';}"></div>
-					 <div><input type="text" value="电子邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电子邮箱';}"></div>
+		   			 <div><input id="username" type="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}"></div>
+					 <div><input id="nickName" type="text" value="昵称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '昵称';}"></div>
+					 <div><input id="email" type="text" value="电子邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电子邮箱';}"></div>
 		    	 </div>
 		    	  <div class="col_1_of_2 span_1_of_2">
-					<div><input type="text" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}"></div>
-					<div><input type="text" value="电话号码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电话号码';}"></div>
-		    		<div><input type="text" value="地址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '地址';}"></div>
+					<div><input id="password" type="text" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}"></div>
+					<div><input id="phoneNumber" type="text" value="电话号码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电话号码';}"></div>
+		    		<div><input id="address" type="text" value="地址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '地址';}"></div>
 
 		    		<!--<div><select id="country" name="country" onchange="change_country(this.value)" class="frm-field required">
 		            <option value="null">Select a Country</option>
@@ -323,7 +323,117 @@
 		           <input type="text" value="" class="code"> - <input type="text" value="" class="number">
 		           <p class="code">Country Code + Phone Number</p>-->
 		       </div>
-		      <button class="grey">提交</button>
+		      <!--<button id="submitButton" class="grey">提交</button>-->
+				   <input id="submitButton" class="grey" type="button" value="提交">
+				   <script>
+                       $('#submitButton').click(function(){
+                           var username = $('#username').val();
+                           var password = $('#password').val();
+                           var nickName = $('#nickName').val();
+                           var email = $('#email').val();
+                           var imageUrl = $('#imageUrl').val();
+                           var phoneNumber = $('#phoneNumber').val();
+                           var address = $('#address').val();
+
+                           var json = {
+                               "username":username,
+                               "password":password,
+                               "nickName":nickName,
+                               "email":email,
+                               "imageUrl":imageUrl,
+                               "phoneNumber":phoneNumber,
+                               "address":address
+                           };
+
+                           if(username == '' || username == '用户名'){
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '请输入用户名！',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
+                           }else if(password == '' || password == '密码'){
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '请输入密码！',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
+                           }
+                           $.ajax({
+                               url: 'http://localhost:9099/auth/registerUser',
+                               dataType: "text",
+                               async: false,
+                               contentType: "application/json; charset=utf-8",
+                               /*headers: {
+                                   "Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
+                               },*/
+                               type: "PUT",
+							   data: JSON.stringify(json),
+                               success:function (data) {
+                                   if(data == null || data == '' || data == undefined || data == 'fail'){
+                                       $.confirm({
+                                           'title'		: '提示',
+                                           'message'	: '抱歉，服务器错误！',
+                                           'buttons'	: {
+                                               'OK': {
+                                                   'class'	: 'gray',
+                                                   'action': function(){}
+                                               }
+                                           }
+                                       });
+                                       return;
+                                   }else if( data == 'success' ){
+                                       $.confirm({
+                                           'title'		: '提示',
+                                           'message'	: '注册成功，将要跳转到首页！',
+                                           'buttons'	: {
+                                               'OK': {
+                                                   'class'	: 'gray',
+                                                   'action': function(){window.location.href = 'index.html';}
+                                               }
+                                           }
+                                       });
+                                       return;
+								   }else if( data == 'repeated' ){
+                                       $.confirm({
+                                           'title'		: '提示',
+                                           'message'	: '抱歉，用户名已被注册，请重新输入！',
+                                           'buttons'	: {
+                                               'OK': {
+                                                   'class'	: 'gray',
+                                                   'action': function(){}
+                                               }
+                                           }
+                                       });
+                                       return;
+                                   }
+                               },
+                               error:function(){
+                                   $.confirm({
+                                       'title'		: '提示',
+                                       'message'	: '抱歉，服务器错误！',
+                                       'buttons'	: {
+                                           'OK': {
+                                               'class'	: 'gray',
+                                               'action': function(){}
+                                           }
+                                       }
+                                   });
+                               }
+                           });
+                       });
+				   </script>
 		    <!--<p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>-->
 		    <div class="clear"></div>
 		    </form>

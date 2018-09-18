@@ -34,6 +34,12 @@ public class SysUser extends AbstractAuditingEntity{
 
     private String imageUrl;
 
+    private String nickName;
+
+    private String phoneNumber;
+
+    private String address;
+
     private Set<SysRole> roles = new HashSet<>();
 
     private Set<GrantedAuthority> authorities = new HashSet<>();

@@ -392,7 +392,7 @@ p.terms {
 	padding: 15px 0 0 15px;
 	color: #999;
 }
-button.grey{
+input.grey{
 	display: inline-block;
 	text-decoration: none;
 	cursor: pointer;
@@ -407,7 +407,7 @@ button.grey{
 	font-family: 'Raleway', sans-serif;
 	outline:none;
 }
-button.grey:hover {
+input.grey:hover {
 	background: #377584;
 	color: #FFF;
 }
