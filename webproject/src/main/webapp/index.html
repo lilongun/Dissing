@@ -70,7 +70,7 @@
 
 				<script type="text/javascript">
 					if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-                        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+                        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="register.html"><font size="5px" color="white">注册</font></a>');
                     }else{
 					    /*
 					    $('#loginBox').html('<ul><li class="dropdown">' +
@@ -78,7 +78,7 @@
 							'<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
 							'</li></ul>');
 							*/
-                        $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                        $('#loginBox').html('<a href="register.html?user_name=' + $.cookie("dissing_user_name") + '"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
                             ' <font color="white">[</font><a href="javascript:logout()"><font size="4px" color="white">注销</font></a><font color="white">]</font>');
                     }
 
@@ -134,11 +134,12 @@
 			</script> 	     -->
 	</div>
    	   <div class="main">
-   	     <div id="content-top" class="content-top">
-			 <!--
-   	      <div class="section1">
-				<div class="cont1 span_2_of_about">
-				-->
+		   <!--
+           <div id="content-top" class="content-top">
+
+            <div class="section1">
+               <div class="cont1 span_2_of_about">
+               -->
 					<!--<h3 class="m_1"><a href="register.html">Create a free account now</a></h3>-->
 				<!--	<a href="login.html"><div class="btn">登录</div></a>
 				</div>
@@ -148,18 +149,17 @@
 			    </div>
 				<div class="clear"></div>
 		    </div>
-			-->
-   	   	 </div>
 
+   	   	 </div>
+		-->
 		 <script type="text/javascript">
-			if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ){
+			/*if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ){
 			    $('#content-top').html('<div class="section1"><div class="cont1 span_2_of_about">' +
-					'<a href="login.html"><div class="btn">登录</div></a></div><div class="rsidebar span_1_of_about"> ' +
 					'<a href="register.html"><div class="btn">立即注册</div></a></div><div class="clear"></div>' +
 					'</div>');
 			}else{
                 $('#content-top').html('');
-			}
+			}*/
 		 </script>
 
    	   	 <div class="content-bottom">
