@@ -133,7 +133,7 @@
                        image_url=#{imageUrl},
                    </if>
                   <if test="username != null">
-                      last_modified_by={username},
+                      last_modified_by=#{username},
                   </if>
                   last_modified_date=now()
              </set>

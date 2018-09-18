@@ -89,7 +89,7 @@
 				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
 				 '</li></ul>');
 				 */
-                $('#loginBox').html('<a href="register.html?user_name=' + $.cookie("dissing_user_name") + '"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
                     ' <font color="white">[</font><a href="javascript:logout()"><font size="4px" color="white">注销</font></a><font color="white">]</font>');
             }
 
@@ -103,7 +103,7 @@
                             'action': function(){
                                 $.cookie("dissing_user_name", "", {expires: -1});
                                 $.cookie("access_token", "", {expires: -1});
-                                window.location.reload();
+                                window.location.href = 'index.html';
                             }
                         },
                         '否': {
@@ -125,6 +125,7 @@
     	      <h4 class="title">创建一个新账户</h4>
     		   <form>
     			 <div class="col_1_of_2 span_1_of_2">
+					 <input id="id" type="hidden" />
 		   			 <div><input id="username" type="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}"></div>
 					 <div><input id="nickName" type="text" value="昵称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '昵称';}"></div>
 					 <div><input id="email" type="text" value="电子邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电子邮箱';}"></div>
@@ -340,10 +341,70 @@
 				   <script>
                        if( $.cookie("dissing_user_name") != null && $.cookie("access_token") != null ){
                            $('#username').attr("disabled","disabled");
+
+                           $.ajax({
+                               url: 'http://localhost:9099/auth/currentUser?access_token='+$.cookie("access_token"),
+                               dataType: "json",
+                               async: false,
+							   headers: {
+								"Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
+								},
+                               type: "GET",
+                               success:function (data) {
+                                   if(data == null || data == '' || data == undefined){
+                                       $.confirm({
+                                           'title'		: '提示',
+                                           'message'	: '抱歉，服务器错误！',
+                                           'buttons'	: {
+                                               'OK': {
+                                                   'class'	: 'gray',
+                                                   'action': function(){}
+                                               }
+                                           }
+                                       });
+                                       return;
+                                   }else{
+                                       $('#id').val(data.id);
+                                       $('#username').val(data.username);
+                                       $('#password').val('修改密码');
+                                       if( data.nickName != null && data.nickName != '' ){
+                                           $('#nickName').val(data.nickName);
+									   }
+                                       if( data.email != null && data.email != '' ) {
+                                           $('#email').val(data.email);
+                                       }
+                                       if( data.imageUrl != null && data.imageUrl != '' ) {
+                                           $('#imageUrl').val(data.imageUrl);
+                                       }
+                                       if( data.phoneNumber != null && data.phoneNumber != '' ) {
+                                           $('#phoneNumber').val(data.phoneNumber);
+                                       }
+                                       if( data.address != null && data.address != '' ) {
+                                           $('#address').val(data.address);
+                                       }
+                                   }
+                               },
+                               error:function(){
+                                   $.confirm({
+                                       'title'		: '提示',
+                                       'message'	: '抱歉，服务器错误！',
+                                       'buttons'	: {
+                                           'OK': {
+                                               'class'	: 'gray',
+                                               'action': function(){}
+                                           }
+                                       }
+                                   });
+                               }
+                           });
 					   }
 
                        $('#submitButton').click(function(){
+                           var id = null;
                            var username = $('#username').val();
+                           if( $.cookie("dissing_user_name") != null && $.cookie("access_token") != null ) {
+                               id = $('#id').val();
+						   }
                            var password = $('#password').val();
                            var nickName = $('#nickName').val();
                            var email = $('#email').val();
@@ -352,6 +413,7 @@
                            var address = $('#address').val();
 
                            var json = {
+                               "id":id,
                                "username":username,
                                "password":password,
                                "nickName":nickName,
@@ -386,18 +448,108 @@
                                });
                                return;
                            }
-                           $.ajax({
-                               url: 'http://localhost:9099/auth/registerUser',
-                               dataType: "text",
-                               async: false,
-                               contentType: "application/json; charset=utf-8",
-                               /*headers: {
-                                   "Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
-                               },*/
-                               type: "PUT",
-							   data: JSON.stringify(json),
-                               success:function (data) {
-                                   if(data == null || data == '' || data == undefined || data == 'fail'){
+                           if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+							   $.ajax({
+								   url: 'http://localhost:9099/auth/registerUser',
+								   dataType: "text",
+								   async: false,
+								   contentType: "application/json; charset=utf-8",
+								   /*headers: {
+									   "Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
+								   },*/
+								   type: "PUT",
+								   data: JSON.stringify(json),
+								   success:function (data) {
+									   if(data == null || data == '' || data == undefined || data == 'fail'){
+										   $.confirm({
+											   'title'		: '提示',
+											   'message'	: '抱歉，服务器错误！',
+											   'buttons'	: {
+												   'OK': {
+													   'class'	: 'gray',
+													   'action': function(){}
+												   }
+											   }
+										   });
+										   return;
+									   }else if( data == 'success' ){
+										   $.confirm({
+											   'title'		: '提示',
+											   'message'	: '注册成功，将要跳转到首页！',
+											   'buttons'	: {
+												   'OK': {
+													   'class'	: 'gray',
+													   'action': function(){window.location.href = 'index.html';}
+												   }
+											   }
+										   });
+										   return;
+									   }else if( data == 'repeated' ){
+										   $.confirm({
+											   'title'		: '提示',
+											   'message'	: '抱歉，用户名已被注册，请重新输入！',
+											   'buttons'	: {
+												   'OK': {
+													   'class'	: 'gray',
+													   'action': function(){}
+												   }
+											   }
+										   });
+										   return;
+									   }
+								   },
+								   error:function(){
+									   $.confirm({
+										   'title'		: '提示',
+										   'message'	: '抱歉，服务器错误！',
+										   'buttons'	: {
+											   'OK': {
+												   'class'	: 'gray',
+												   'action': function(){}
+											   }
+										   }
+									   });
+								   }
+							   });
+                           }else{
+                               $.ajax({
+                                   url: 'http://localhost:9099/auth/updateUser?access_token='+$.cookie("access_token"),
+                                   dataType: "text",
+                                   async: false,
+                                   contentType: "application/json; charset=utf-8",
+								   /*headers: {
+									"Authorization": "Basic " + btoa("dissing" + ":" + "dissing")
+									},*/
+                                   type: "POST",
+                                   data: JSON.stringify(json),
+                                   success:function (data) {
+                                       if(data == null || data == '' || data == undefined || data == 'fail'){
+                                           $.confirm({
+                                               'title'		: '提示',
+                                               'message'	: '抱歉，服务器错误！',
+                                               'buttons'	: {
+                                                   'OK': {
+                                                       'class'	: 'gray',
+                                                       'action': function(){}
+                                                   }
+                                               }
+                                           });
+                                           return;
+                                       }else if( data == 'success' ){
+                                           $.confirm({
+                                               'title'		: '提示',
+                                               'message'	: '修改成功！',
+                                               'buttons'	: {
+                                                   'OK': {
+                                                       'class'	: 'gray',
+                                                       'action': function(){}
+                                                   }
+                                               }
+                                           });
+                                           return;
+                                       }
+                                   },
+                                   error:function(){
                                        $.confirm({
                                            'title'		: '提示',
                                            'message'	: '抱歉，服务器错误！',
@@ -408,47 +560,11 @@
                                                }
                                            }
                                        });
-                                       return;
-                                   }else if( data == 'success' ){
-                                       $.confirm({
-                                           'title'		: '提示',
-                                           'message'	: '注册成功，将要跳转到首页！',
-                                           'buttons'	: {
-                                               'OK': {
-                                                   'class'	: 'gray',
-                                                   'action': function(){window.location.href = 'index.html';}
-                                               }
-                                           }
-                                       });
-                                       return;
-								   }else if( data == 'repeated' ){
-                                       $.confirm({
-                                           'title'		: '提示',
-                                           'message'	: '抱歉，用户名已被注册，请重新输入！',
-                                           'buttons'	: {
-                                               'OK': {
-                                                   'class'	: 'gray',
-                                                   'action': function(){}
-                                               }
-                                           }
-                                       });
-                                       return;
                                    }
-                               },
-                               error:function(){
-                                   $.confirm({
-                                       'title'		: '提示',
-                                       'message'	: '抱歉，服务器错误！',
-                                       'buttons'	: {
-                                           'OK': {
-                                               'class'	: 'gray',
-                                               'action': function(){}
-                                           }
-                                       }
-                                   });
-                               }
-                           });
+                               });
+						   }
                        });
+
 				   </script>
 		    <!--<p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>-->
 		    <div class="clear"></div>

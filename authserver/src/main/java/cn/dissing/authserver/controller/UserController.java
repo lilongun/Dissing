@@ -21,6 +21,12 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/currentUser")
+    public SysUser currentUser(Principal user){
+        SysUser sysUser = userService.findOneWithRolesByUsername(user.getName());
+        return sysUser;
+    }
+
     @GetMapping("/getBCryptPassword")
     public String getBCryptPassword(@RequestParam String password) {
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -46,6 +52,24 @@ public class UserController {
         System.out.println(hashed);
         sysUser.setPassword(hashed);
         int result = userService.saveUser(sysUser);
+        if(result > 0){
+            System.out.println("save successed");
+            return "success";
+        }
+        return "fail";
+    }
+
+    @RequestMapping(value="/updateUser", method = RequestMethod.POST)
+    public String updateUser(@RequestBody SysUser sysUser, Principal user) {
+        if( !user.getName().equals(sysUser.getUsername()) ){
+            return "fail";
+        }
+        if( sysUser.getPassword() != null ) {
+            String hashed = BCrypt.hashpw(sysUser.getPassword(), BCrypt.gensalt());
+            System.out.println(hashed);
+            sysUser.setPassword(hashed);
+        }
+        int result = userService.updateUser(sysUser);
         if(result > 0){
             System.out.println("save successed");
             return "success";
