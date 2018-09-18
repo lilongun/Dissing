@@ -423,7 +423,7 @@
                                "address":address
                            };
 
-                           if(username == '' || username == '用户名'){
+                           if(username == ''){
                                $.confirm({
                                    'title'		: '提示',
                                    'message'	: '请输入用户名！',
@@ -435,7 +435,19 @@
                                    }
                                });
                                return;
-                           }else if(password == '' || password == '密码'){
+                           } else if(!/^[A-Za-z0-9_-]+$/.test(username)) {
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '对不起，用户名只能包含英文大小写或数字或下划线以及横杠',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
+                           } else if(password == ''){
                                $.confirm({
                                    'title'		: '提示',
                                    'message'	: '请输入密码！',
@@ -447,7 +459,21 @@
                                    }
                                });
                                return;
+                           }else if(!/^[A-Za-z0-9!@$*_\-()=.\[\]?,]+$/.test(password)) {
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '对不起，密码只能包含英文大小写或数字以及如下字符!@$*_-()=.[]?,',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
                            }
+
+
                            if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
 							   $.ajax({
 								   url: 'http://localhost:9099/auth/registerUser',
