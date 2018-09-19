@@ -471,6 +471,30 @@
                                    }
                                });
                                return;
+                           }else if(!/^[0-9-]+$/.test(phoneNumber)) {
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '对不起，电话号码只能包含数字或横杠',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
+                           }else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)) {
+                               $.confirm({
+                                   'title'		: '提示',
+                                   'message'	: '对不起，电子邮箱格式不正确',
+                                   'buttons'	: {
+                                       'OK': {
+                                           'class'	: 'gray',
+                                           'action': function(){}
+                                       }
+                                   }
+                               });
+                               return;
                            }
 
 
