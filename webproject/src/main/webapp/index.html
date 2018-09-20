@@ -29,12 +29,13 @@
 						   <div class="box_content_center">
 							   <div class="menu_box_list">
 								   <ul>
-									   <li><a href="index.html">Home</a></li>
+									   <li><a href="index.html">主页</a></li>
+									   <li id="diss" style="display:none"><a href="contact.html">发Diss</a></li>
 									   <li class="active"><a href="about.html">About</a></li>
 									   <li><a href="blog.html">Blog</a></li>
 									   <li><a href="gallery.html">Gallery</a></li>
 									   <li><a href="contact.html">Contact</a></li>
-									   <li><a href="404.html">404</a></li>
+									   <!--<li><a href="404.html">404</a></li>-->
 								   </ul>
 								</div>
 								<a class="boxclose" id="boxclose"><img src="images/close.png" alt=""></a>
@@ -71,7 +72,8 @@
 				<script type="text/javascript">
 					if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
                         $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="register.html"><font size="5px" color="white">注册</font></a>');
-                    }else{
+                        $('#diss').css("display","none");
+					}else{
 					    /*
 					    $('#loginBox').html('<ul><li class="dropdown">' +
 							'<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
@@ -79,7 +81,8 @@
 							'</li></ul>');
 							*/
                         $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-                            ' <font color="white">[</font><a href="javascript:logout()"><font size="4px" color="white">注销</font></a><font color="white">]</font>');
+                            ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+                        $('#diss').css("display","block");
                     }
 
                     function logout(){
