@@ -44,7 +44,8 @@
 				  	<div class="box_content_center1">
 					    <div class="menu_box_list1">
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="index.html">主页</a></li>
+								<li id="diss" style="display:none"><a href="posteditor.jsp">发Diss</a></li>
 								<li class="active"><a href="about.html">About</a></li> 
 								<li><a href="blog.html">Blog</a></li> 
 								<li><a href="gallery.html">Gallery</a></li>
@@ -96,6 +97,7 @@
 				 */
                 $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
                     ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+                $('#diss').css("display","block");
             }
 
             function logout(){

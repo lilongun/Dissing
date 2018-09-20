@@ -27,7 +27,8 @@
 				  	<div class="box_content_center1">
 					    <div class="menu_box_list1">
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="index.html">主页</a></li>
+								<li id="diss" style="display:none"><a href="posteditor.jsp">发Diss</a></li>
 								<li class="active"><a href="about.html">About</a></li> 
 								<li><a href="blog.html">Blog</a></li> 
 								<li><a href="gallery.html">Gallery</a></li>
@@ -91,6 +92,7 @@
 				 */
                 $('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
                     ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+                $('#diss').css("display","block");
             }
 
             function logout(){
@@ -126,14 +128,14 @@
     		   <form>
     			 <div class="col_1_of_2 span_1_of_2">
 					 <input id="id" type="hidden" />
-		   			 <div><input id="username" type="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}"></div>
-					 <div><input id="nickName" type="text" value="昵称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '昵称';}"></div>
-					 <div><input id="email" type="text" value="电子邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电子邮箱';}"></div>
+		   			 <div><input id="username" type="text" value="用户名" onfocus="if (this.value == '用户名') {this.value = '';}" onblur="if (this.value == '') {this.value = '用户名';}"></div>
+					 <div><input id="nickName" type="text" value="昵称" onfocus="if (this.value == '昵称') {this.value = '';}" onblur="if (this.value == '') {this.value = '昵称';}"></div>
+					 <div><input id="email" type="text" value="电子邮箱" onfocus="if (this.value == '电子邮箱') {this.value = '';}" onblur="if (this.value == '') {this.value = '电子邮箱';}"></div>
 		    	 </div>
 		    	  <div class="col_1_of_2 span_1_of_2">
-					<div><input id="password" type="text" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}"></div>
-					<div><input id="phoneNumber" type="text" value="电话号码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电话号码';}"></div>
-		    		<div><input id="address" type="text" value="地址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '地址';}"></div>
+					<div><input id="password" type="text" value="密码" onfocus="if (this.value == '密码' || this.value == '修改密码') {this.value = '';}" onblur="if (this.value == '') {this.value = '密码';}"></div>
+					<div><input id="phoneNumber" type="text" value="电话号码" onfocus="if (this.value == '电话号码') {this.value = '';}" onblur="if (this.value == '') {this.value = '电话号码';}"></div>
+		    		<div><input id="address" type="text" value="地址" onfocus="if (this.value == '地址') {this.value = '';}" onblur="if (this.value == '') {this.value = '地址';}"></div>
 
 		    		<!--<div><select id="country" name="country" onchange="change_country(this.value)" class="frm-field required">
 		            <option value="null">Select a Country</option>

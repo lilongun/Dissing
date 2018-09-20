@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <script src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script src="jquery.confirm/jquery.confirm.js"></script>
@@ -172,7 +173,10 @@
   <div class="header-top">	
 	<div class="wrap">
    		<div class="logo">
-			<!--<a href="index.html"><img src="images/logo.png" alt=""/></a>-->
+			<a href="index.html">
+				<!--<img src="images/logo.png" alt=""/>-->
+				<font size="6px" color="white">Dissing</font>
+			</a>
 		</div>	
 		<div class="menu">																
 			<a href="#" class="right_bt" id="activator"><img src="images/nav_icon.png" alt=""></a>
@@ -180,7 +184,7 @@
 				  	<div class="box_content_center1">
 					    <div class="menu_box_list1">
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="index.html">主页</a></li>
 								<li><a href="login.html">Management</a></li>
 								<li class="active"><a href="about.html">About</a></li> 
 								<!--<li><a href="blog.html">Blog</a></li> -->
@@ -215,7 +219,50 @@
 									
 									});
 							</script>
-			         </div> 	
+			         </div>
+
+					<div id="loginBox" style="float:right;margin-top: 11px;">
+
+					</div>
+
+					<script type="text/javascript">
+						if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+							$('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="register.html"><font size="5px" color="white">注册</font></a>');
+							$('#diss').css("display","none");
+						}else{
+							/*
+							 $('#loginBox').html('<ul><li class="dropdown">' +
+							 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+							 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+							 '</li></ul>');
+							 */
+							$('#loginBox').html('<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+								' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+							$('#diss').css("display","block");
+						}
+
+						function logout(){
+							$.confirm({
+								'title'		: '提示',
+								'message'	: '确定要注销当前用户吗？',
+								'buttons'	: {
+									'是'	: {
+										'class'	: 'blue',
+										'action': function(){
+											$.cookie("dissing_user_name", "", {expires: -1});
+											$.cookie("access_token", "", {expires: -1});
+											window.location.href = "index.html";
+										}
+									},
+									'否': {
+										'class'	: 'gray',
+										'action': function(){}
+									}
+								}
+							});
+
+						}
+					</script>
 			         <div class="clear"></div>		
 		  </div>	
 		</div>	
@@ -226,11 +273,11 @@
 				<form>
 					<input type="hidden" id="id" >
 					<p>
-						<label>Order Number</label>
+						<label>Diss对象</label>
 						<!--<span>*</span>-->
 						<input id="orderNumber" type="text" value="">
 					</p>
-					<p id="productModelSource">
+					<%--<p id="productModelSource">
 						<span style="width:40%; display:inline-block">
 							<label>Product Model</label>
 							<!--<span>*</span>-->
@@ -243,21 +290,9 @@
 						<span>
 							<input onclick="" value="Add" type="button" id="addModel">
 						</span>
-					</p>
-					<%--<p>
-						<label>Quantity</label>
-						<input id="" type="text" value="">
 					</p>--%>
-					<p id="statusSource">
-						<label>Status</label>
-						<input id="status" type="text" value="">
-					</p>
 					<p>
-						<label>Shipping</label>
-						<input id="shipping" type="text" value="">
-					</p>
-					<p>
-						<label>Quality Check</label>
+						<label>Diss内容</label>
 						<!--<span>*</span>-->
 						<textarea id="qualityCheck" name="editor"></textarea>
 					</p>
@@ -403,9 +438,10 @@
 							}
 						});
 
-                        $('#addModel').click(function(){
+						//添加model
+                        /*$('#addModel').click(function(){
                             $('#statusSource').before('<p><span style="width:40%; display:inline-block"><label>Product Model</label><input value="" name="productModel" style="width:100%" type="text"></span> <span style="width:10%;display:inline-block"><label>Quantity</label><input value="" style="width:100%" name="quantity" type="text"></span></p>');
-                        });
+                        });*/
 					});
 				</script>
 			</div>

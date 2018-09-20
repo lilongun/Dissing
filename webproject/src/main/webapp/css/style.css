@@ -1116,8 +1116,8 @@ p.m_6{
 	width: 40%;
 	color: #777;
 	font-size:1em;
-	border: none;
-	background:#E4E4E4;
+	border: 1px solid #ddd;
+	/*background:#E4E4E4;*/
 	outline: none;
 	/*display: block;*/
 	font-family: 'Raleway', sans-serif;
