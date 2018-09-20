@@ -297,8 +297,8 @@
 						<textarea id="qualityCheck" name="editor"></textarea>
 					</p>
 					<p>
-						<input id="submitOrder" type="button" value="Submit">
-						<input type="button" value="Cancel" onclick="window.location.href='orderlist.jsp'">
+						<input id="submitOrder" type="button" value="提交">
+						<input type="button" value="取消" onclick="window.location.href='index.html'">
 					</p>
 				</form>
 				<ckeditor:replace replace="qualityCheck" basePath="ckeditor/" />
@@ -451,7 +451,7 @@
 	   	<div class="wrap">
 	   		<div class="copy">
 			   <p>
-			   Copyright &copy; 2018.Bonzzy All rights reserved.
+				   Copyright &copy; 2018.dissing.cn All rights reserved.
 			   <!--<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>-->
 			   </p>
 		    </div>
