@@ -171,7 +171,7 @@
 
 <div class="index-banner1">
   <div class="header-top">	
-	<div class="wrap" style="line-height:50px;">
+	<div class="wrap">
    		<div class="logo">
 			<a href="index.html">
 				<!--<img src="images/logo.png" alt=""/>-->

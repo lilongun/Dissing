@@ -53,6 +53,7 @@ body{
 .logo{
 	float:left;
 	/*margin-top: 8px;*/
+	line-height:55px;
 }
 /*--//header-welcome-note--*/
 .box{
@@ -450,7 +451,8 @@ h4.title {
 	text-transform: uppercase;
 }
 .box_content_center1{
-	background:#8FCDDC;
+	/*background:#8FCDDC;*/
+	background:rgba(143, 205, 220, 0.73);
 }
 .menu_box_list1{
 	display: inline-block;
