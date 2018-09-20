@@ -52,7 +52,7 @@ body{
 /*-----stat-header----*/
 .logo{
 	float:left;
-	margin-top: 8px;
+	/*margin-top: 8px;*/
 }
 /*--//header-welcome-note--*/
 .box{

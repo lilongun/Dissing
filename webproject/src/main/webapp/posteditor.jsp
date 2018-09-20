@@ -171,7 +171,7 @@
 
 <div class="index-banner1">
   <div class="header-top">	
-	<div class="wrap">
+	<div class="wrap" style="line-height:50px;">
    		<div class="logo">
 			<a href="index.html">
 				<!--<img src="images/logo.png" alt=""/>-->
@@ -221,7 +221,7 @@
 							</script>
 			         </div>
 
-					<div id="loginBox" style="float:right;margin-top: 10px;">
+					<div id="loginBox" style="float:right;line-height:55px;">
 
 					</div>
 
