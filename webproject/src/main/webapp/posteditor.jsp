@@ -346,7 +346,16 @@
 											return;
 										}
 										if(data == 'success'){
-											window.location.href = 'index.html';
+                                            $.confirm({
+                                                'title'		: '提示',
+                                                'message'	: '发送diss成功!',
+                                                'buttons'	: {
+                                                    'OK': {
+                                                        'class'	: 'gray',
+                                                        'action': function(){window.location.href = 'index.html';}
+                                                    }
+                                                }
+                                            });
 										}else{
 											$.confirm({
 												'title'		: '提示',
