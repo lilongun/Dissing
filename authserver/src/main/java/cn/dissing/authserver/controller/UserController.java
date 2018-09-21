@@ -3,6 +3,7 @@ package cn.dissing.authserver.controller;
 import cn.dissing.authserver.domain.SysUser;
 import cn.dissing.authserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 

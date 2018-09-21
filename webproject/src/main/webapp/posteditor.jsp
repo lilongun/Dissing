@@ -275,7 +275,7 @@
 					<p>
 						<label>Diss对象</label>
 						<!--<span>*</span>-->
-						<input id="orderNumber" type="text" value="">
+						<input id="subject" type="text" value="">
 					</p>
 					<%--<p id="productModelSource">
 						<span style="width:40%; display:inline-block">
@@ -294,54 +294,49 @@
 					<p>
 						<label>Diss内容</label>
 						<!--<span>*</span>-->
-						<textarea id="qualityCheck" name="editor"></textarea>
+						<textarea id="content" name="editor"></textarea>
 					</p>
 					<p>
 						<input id="submitOrder" type="button" value="提交">
 						<input type="button" value="取消" onclick="window.location.href='index.html'">
 					</p>
 				</form>
-				<ckeditor:replace replace="qualityCheck" basePath="ckeditor/" />
+				<ckeditor:replace replace="content" basePath="ckeditor/" />
 				<script type="text/javascript">
 					var $ = jQuery.noConflict();
 					$(function() {
 						$('#submitOrder').click(function(){
-							var orderNumber = $('#orderNumber').val();
+							var subject = $('#subject').val();
 							//var productModel = $('#productModel').val();
-							var productModelArray = $('input[name="productModel"]');
+							//var productModelArray = $('input[name="productModel"]');
 							//var quantity = $('#quantity').val();
-                            var quantityArray = $('input[name="quantity"]');
-                            var productArray = [];
+                            //var quantityArray = $('input[name="quantity"]');
+                            /*var productArray = [];
                             for( i=0; i<productModelArray.length; i++ ){
                                 productArray.push( "{'productModel':'" + productModelArray[i].value + "', 'quantity':'" + quantityArray[i].value + "'}" );
 							}
 							var status = $('#status').val();
-							var shipping = $('#shipping').val();
+							var shipping = $('#shipping').val();*/
 							var id = $('#id').val();
 							var reg=/\n/g;
 							var reg2=/\"/g;
-							var check = CKEDITOR.instances.qualityCheck.getData().replace(reg , "").replace(reg2, "'");
+							var check = CKEDITOR.instances.content.getData().replace(reg , "").replace(reg2, "'");
 							if(id == ''){
 								$.ajax({
-									url: "http://localhost:9099/order/saveOrder?access_token="+access_token,
+									url: "http://localhost:9099/board/savePost?access_token="+access_token,
 									type: "put",  
 									//dataType: "json",
 									contentType: "application/json; charset=UTF-8",
 									data: 
-									'{"orderNumber" : "'+orderNumber+'","product" : "['+ productArray.toString() + ']","status" : "' + status + '","shipping" : "' + shipping + '","qualityCheck" : "' + check + '"}',
+									/*'{"orderNumber" : "'+orderNumber+'","product" : "['+ productArray.toString() + ']","status" : "' + status + '","shipping" : "' + shipping + '","qualityCheck" : "' + check + '"}',*/
+                                    '{"subject" : "'+subject+'","content" : "' + check + '"}',
 									async: false,
 									success:function (data) {
 										if(data == null || data == '' || data == undefined){
 											$.confirm({
-												'title'		: 'Tips',
-												'message'	: 'Sorry, server exception!',
+												'title'		: '提示',
+												'message'	: '抱歉，服务器错误！',
 												'buttons'	: {
-													/*'Yes'	: {
-														'class'	: 'blue',
-														'action': function(){
-															elem.slideUp();
-														}
-													},*/
 													'OK': {
 														'class'	: 'gray',
 														'action': function(){}
@@ -351,11 +346,11 @@
 											return;
 										}
 										if(data == 'success'){
-											window.location.href = 'orderlist.jsp';
+											window.location.href = 'index.html';
 										}else{
 											$.confirm({
-												'title'		: 'Tips',
-												'message'	: 'Sorry, submit order failed!',
+												'title'		: '提示',
+												'message'	: '抱歉, 发送diss错误!',
 												'buttons'	: {
 													'OK': {
 														'class'	: 'gray',
@@ -367,8 +362,8 @@
 									},
 									error:function(data){
 										$.confirm({
-											'title'		: 'Tips',
-											'message'	: 'Sorry, server exception!',
+											'title'		: '提示',
+											'message'	: '抱歉，服务器错误！',
 											'buttons'	: {
 												'OK': {
 													'class'	: 'gray',
@@ -380,59 +375,53 @@
 								});
 							}else{
 								$.ajax({
-									url: "http://localhost:9099/order/updateOrder?access_token="+access_token,
+									url: "http://localhost:9099/board/updatePost?access_token="+access_token,
 									type: "post",  
 									//dataType: "json",
 									contentType: "application/json; charset=UTF-8",
-									data: 
-									'{"id": "'+ id +'","orderNumber" : "'+orderNumber+'","product" : "['+ productArray.toString() + ']","status" : "' + status + '","shipping" : "' + shipping + '","qualityCheck" : "' + check + '"}',
+									data:
+									'{"id": "'+ id +'","subject" : "'+subject+'","content" : "' + check + '"}',
 									async: false,
 									success:function (data) {
 										if(data == null || data == '' || data == undefined){
 											$.confirm({
-												'title'		: 'Tips',
-												'message'	: 'Sorry, server exception!',
-												'buttons'	: {
-													/*'Yes'	: {
-														'class'	: 'blue',
-														'action': function(){
-															elem.slideUp();
-														}
-													},*/
-													'OK': {
-														'class'	: 'gray',
-														'action': function(){}
-													}
-												}
+                                                'title'		: '提示',
+                                                'message'	: '抱歉，服务器错误！',
+                                                'buttons'	: {
+                                                    'OK': {
+                                                        'class'	: 'gray',
+                                                        'action': function(){}
+                                                    }
+                                                }
 											});
 											return;
 										}
 										if(data == 'success'){
 											window.location.href = 'orderlist.jsp';
 										}else{
-											$.confirm({
-												'title'		: 'Tips',
-												'message'	: 'Sorry, submit order failed!',
-												'buttons'	: {
-													'OK': {
-														'class'	: 'gray',
-														'action': function(){}
-													}
-												}
-											});
+                                            $.confirm({
+                                                'title'		: '提示',
+                                                'message'	: '抱歉, 发送diss错误!',
+                                                'buttons'	: {
+                                                    'OK': {
+                                                        'class'	: 'gray',
+                                                        'action': function(){}
+                                                    }
+                                                }
+                                            });
 										}
 									},
 									error:function(data){
-										$.confirm({
-											'title'		: 'Tips',
-											'message'	: 'Sorry, server exception!',
-											'buttons'	: {
-												'OK': {
-													'class'	: 'gray',
-													'action': function(){}
-												}
-											}
-										});
+                                        $.confirm({
+                                            'title'		: '提示',
+                                            'message'	: '抱歉，服务器错误！',
+                                            'buttons'	: {
+                                                'OK': {
+                                                    'class'	: 'gray',
+                                                    'action': function(){}
+                                                }
+                                            }
+                                        });
 									}
 								});
 							}
