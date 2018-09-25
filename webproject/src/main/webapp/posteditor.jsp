@@ -20,7 +20,7 @@
 <script type="text/javascript">
 	access_token = $.cookie('access_token');
 	if(access_token == null){
-		window.location.href = '404.html';
+		window.location.href = 'index.html';
 	}
 	//Ajax调用处理
 	$(document).ready(function(){
@@ -352,7 +352,7 @@
                                                 'buttons'	: {
                                                     'OK': {
                                                         'class'	: 'gray',
-                                                        'action': function(){window.location.href = 'index.html';}
+                                                        'action': function(){window.location.href = 'mypage.html';}
                                                     }
                                                 }
                                             });
