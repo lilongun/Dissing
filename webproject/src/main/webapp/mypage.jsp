@@ -92,198 +92,7 @@
 
 		</div>
 
-		<script type="text/javascript">
-            if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-                $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
-            }else{
-				/*
-				 $('#loginBox').html('<ul><li class="dropdown">' +
-				 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
-				 '</li></ul>');
-				 */
-                $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-                    ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
-                $('#diss').css("display","block");
 
-				$.ajax({
-					url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%>",
-					type: "get",
-					dataType: "json",
-						/*username: "bonzzy",
-						 password: "bonzzy",*/
-					async: false,
-					success:function (data) {
-						currentPage = <%=pageNum%>;
-
-						if(data.list.length > 0){
-							if(currentPage > 1){
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '" class="previous">Previous</a></li>');
-							}else{
-								$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '" class="previous">Previous</a></li>');
-							}
-
-                            $('#pageUl').append($pageLi);
-						}
-
-						if(data.totalPage < 9){
-							for( i=0; i<data.totalPage; i++ ){
-								if(currentPage == i+1){
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
-								}else{
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
-								}
-								$('#pageUl').append($pageLi);
-							}
-						}else{
-							if( currentPage < 6 ){
-								for( i=0; i<6; i++ ){
-									if(currentPage == i+1){
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
-									}else{
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
-									}
-									$('#pageUl').append($pageLi);
-								}
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-2) + '">...</a></li>');
-								$('#pageUl').append($pageLi);
-								for( i=data.totalPage-2; i<data.totalPage; i++ ){
-									if(currentPage == i+1){
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
-									}else{
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
-									}
-									$('#pageUl').append($pageLi);
-								}
-							}else if( currentPage > data.totalPage-5 ){
-								for( i=0; i<2; i++ ){
-									if(currentPage == i+1){
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
-									}else{
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
-									}
-									$('#pageUl').append($pageLi);
-								}
-								$pageLi=$('<li><a href="mypage.jsp?pageNum=3' + '">...</a></li>');
-								$('#pageUl').append($pageLi);
-								for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
-									if(currentPage == i){
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '" class="current">'+i+'</a></li>');
-									}else{
-										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '">'+i+'</a></li>');
-									}
-									$('#pageUl').append($pageLi);
-								}
-							}else{
-								$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '">1</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum=2'+ '">...</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '">'+(currentPage-1)+'</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ currentPage + '" class="current">'+currentPage+'</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '">'+(currentPage+1)+'</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-1) + '">...</a></li>');
-								$('#pageUl').append($pageLi);
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '">'+data.totalPage+'</a></li>');
-								$('#pageUl').append($pageLi);
-							}
-						}
-
-						if(data.list.length > 0){
-							if( currentPage < data.totalPage ){
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '" class="next">Next</a></li>');
-							}else{
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '" class="next">Next</a></li>');
-							}
-						}
-
-						$('#pageUl').append($pageLi);
-
-						/*if(data.list.length == 0){
-						 $('#order').hide();
-						 return;
-						 }*/
-
-						$('#order').show();
-						for( i=0; i<data.list.length; i++){
-							$orderNumber=$("<td>"+ data.list[i].orderNumber +"</td>");
-							//$productModel=$("<td>"+ data.list[i].productModel +"</td>");
-							//$quantity=$("<td>"+ data.list[i].quantity +"</td>");
-							productArray = JSON.parse(data.list[i].product);
-							parseString = '';
-							for( j=0; j<productArray.length; j++ ){
-								parseString += productArray[j].productModel + " : " + productArray[j].quantity;
-								parseString += "<br/>";
-							}
-							$product=$("<td>"+ parseString +"</td>");
-							$status=$("<td>"+ data.list[i].status +"</td>");
-							$shipping=$("<td>"+ data.list[i].shipping +"</td>");
-							$operation=$('<td><a style="color:#A67D3D" href="ordereditor.jsp?id='+ data.list[i].id +'">edit</a><font style="color:#999 !important">/</font><a style="color:#A67D3D" href="javascript:deleteOrder('+ data.list[i].id +')">delete</a></td>');
-							$orderInfo=$("<tr></tr>");
-							$orderInfo.append($orderNumber);
-							//$orderInfo.append($productModel);
-							//$orderInfo.append($quantity);
-							$orderInfo.append($product);
-							$orderInfo.append($status);
-							$orderInfo.append($shipping);
-							$orderInfo.append($operation);
-
-							$("#order").children('tbody').append($orderInfo);
-						}
-
-						$('tbody tr').hover(function() {
-							$(this).addClass('odd');
-						}, function() {
-							$(this).removeClass('odd');
-						});
-
-						$('tbody tr td a').hover(function() {
-							$(this).css('text-decoration','underline');
-						}, function() {
-							$(this).css('text-decoration','none');
-						});
-					},
-					error:function(){
-						$.confirm({
-							'title'		: '提示',
-							'message'	: '抱歉，系统错误!',
-							'buttons'	: {
-								'OK': {
-									'class'	: 'gray',
-									'action': function(){}
-								}
-							}
-						});
-					}
-				});
-
-            }
-
-            function logout(){
-                $.confirm({
-                    'title'		: '提示',
-                    'message'	: '确定要注销当前用户吗？',
-                    'buttons'	: {
-                        '是'	: {
-                            'class'	: 'blue',
-                            'action': function(){
-                                $.cookie("dissing_user_name", "", {expires: -1});
-                                $.cookie("access_token", "", {expires: -1});
-                                window.location.reload();
-                            }
-                        },
-                        '否': {
-                            'class'	: 'gray',
-                            'action': function(){}
-                        }
-                    }
-                });
-
-            }
-		</script>
 		<div class="clear"></div>
 		  </div>	
 		</div>	
@@ -294,66 +103,32 @@
 		   	 <!--<ul class="breadcrumb breadcrumb__t"><a class="home" href="#">Gallery</a>  / About</ul>-->
 			  <!--<ul class="breadcrumb breadcrumb__t">我的Diss列表</ul>-->
 			  <div class="section group">
-				 <div class="cont1 span_2_of_g1">
+				 <div id="listDiv" class="cont1 span_2_of_g1">
 
 					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
 
-
 				      <div class="section group">
-						<div class="col_1_of_about-box span_1_of_about-box">
-						 <a class="popup-with-zoom-anim" href="#small-dialog"><span class="rollover"> </span><img src="images/g1.jpg" title="continue" alt=""/></a>
-		                     <div id="small-dialog" class="mfp-hide">
-							   <div class="pop_up">
-							   	  <img src="images/g1.jpg" alt=""/>
-							   	  <div class="mfp-title">Lorem ipsum est</div>
-								</div>
-							 </div>
-						   <div class="g_desc">
-			                   <div class="g_1">
-			                   	<h4 class="no"><a href="#">#125846</a></h4>
-			                   	<p class="g_2"><a href="#">Nature</a></p>
-			                   </div>
-			                   <span class="likes"><a href="#"><img src="images/heart.png" title="likes" alt=""> 16</a></span>
-			                   <div class="clear"></div>
-			               </div>		
-					     </div>
 						 <div class="col_1_of_about-box span_1_of_about-box">
-						    <a class="popup-with-zoom-anim" href="#small-dialog1"><span class="rollover"> </span><img src="images/g2.jpg" title="continue" alt=""/></a>
-		                     <div id="small-dialog1" class="mfp-hide">
-							   <div class="pop_up">
-							   	  <img src="images/g2.jpg" alt=""/>
-							   	  <div class="mfp-title">Lorem ipsum est</div>
-								</div>
-							 </div>
 						   <div class="g_desc">
 			                   <div class="g_1">
-			                   	<h4 class="no"><a href="#">#125846</a></h4>
-			                   	<p class="g_2"><a href="#">Nature</a></p>
+			                   	<h4 class="no"><a href="#">#125846q`111111111111111111111112222222222222222222222222222222222222222221111</a></h4>
 			                   </div>
-			                   <span class="likes"><a href="#"><img src="images/heart.png" title="likes" alt=""> 16</a></span>
 			                   <div class="clear"></div>
 			               </div>		
 					     </div>
-						 <div class="col_1_of_about-box span_1_of_about-box">
-						   <a class="popup-with-zoom-anim" href="#small-dialog2"><span class="rollover"> </span><img src="images/g3.jpg" title="continue" alt=""/></a>
-		                     <div id="small-dialog2" class="mfp-hide">
-							   <div class="pop_up">
-							   	  <img src="images/g3.jpg" alt=""/>
-							   	  <div class="mfp-title">Lorem ipsum est</div>
-								</div>
-							 </div> 
-						   <div class="g_desc">
-			                   <div class="g_1">
-			                   	<h4 class="no"><a href="#">#125846</a></h4>
-			                   	<p class="g_2"><a href="#">Nature</a></p>
-			                   </div>
-			                   <span class="likes"><a href="#"><img src="images/heart.png" title="likes" alt=""> 16</a></span>
-			                   <div class="clear"></div>
-			               </div>		
-					     </div>
-				        <div class="clear"></div> 
-					</div>
-					<div class="section group">
+
+						  <div class="col_1_of_about-box span_1_of_about-box">
+							  <div class="g_desc">
+								  <div class="g_1">
+									  <h4 class="no"><a href="#">16:16</a></h4>
+								  </div>
+								  <div class="clear"></div>
+							  </div>
+						  </div>
+
+						  <div class="clear"></div>
+					  </div>
+					<%--<div class="section group">
 						<div class="col_1_of_about-box span_1_of_about-box">
 						   <a class="popup-with-zoom-anim" href="#small-dialog4"><span class="rollover"> </span><img src="images/g4.jpg" title="continue" alt=""/></a>
 		                     <div id="small-dialog4" class="mfp-hide">
@@ -514,7 +289,7 @@
 			               </div>		
 					     </div>
 				        <div class="clear"></div> 
-					</div>
+					</div>--%>
 				    <ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06">
 
 		            </ul>
@@ -539,10 +314,179 @@
 	<div class="footer">
 	   	<div class="wrap">
 	   		<div class="copy">
-			   <p>Copyright &copy; 2014.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+				Copyright &copy; 2018.dissing.cn All rights reserved.
 		    </div>
 	   	</div>
     </div>
+
+	<script type="text/javascript">
+		if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+			$('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+		}else{
+			/*
+			 $('#loginBox').html('<ul><li class="dropdown">' +
+			 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+			 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+			 '</li></ul>');
+			 */
+			$('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+				' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+			$('#diss').css("display","block");
+
+			access_token = $.cookie('access_token');
+
+			$.ajax({
+				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%>",
+				type: "get",
+				dataType: "json",
+				/*username: "bonzzy",
+				 password: "bonzzy",*/
+				async: false,
+				success:function (data) {
+					currentPage = <%=pageNum%>;
+
+					if(data.list.length > 0){
+						if(currentPage > 1){
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '" class="previous">Previous</a></li>');
+						}else{
+							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '" class="previous">Previous</a></li>');
+						}
+
+						$('#pageUl').append($pageLi);
+					}
+
+					if(data.totalPage < 9){
+						for( i=0; i<data.totalPage; i++ ){
+							if(currentPage == i+1){
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+							}else{
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+							}
+							$('#pageUl').append($pageLi);
+						}
+					}else{
+						if( currentPage < 6 ){
+							for( i=0; i<6; i++ ){
+								if(currentPage == i+1){
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+								}else{
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+								}
+								$('#pageUl').append($pageLi);
+							}
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-2) + '">...</a></li>');
+							$('#pageUl').append($pageLi);
+							for( i=data.totalPage-2; i<data.totalPage; i++ ){
+								if(currentPage == i+1){
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+								}else{
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+								}
+								$('#pageUl').append($pageLi);
+							}
+						}else if( currentPage > data.totalPage-5 ){
+							for( i=0; i<2; i++ ){
+								if(currentPage == i+1){
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+								}else{
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+								}
+								$('#pageUl').append($pageLi);
+							}
+							$pageLi=$('<li><a href="mypage.jsp?pageNum=3' + '">...</a></li>');
+							$('#pageUl').append($pageLi);
+							for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
+								if(currentPage == i){
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '" class="current">'+i+'</a></li>');
+								}else{
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '">'+i+'</a></li>');
+								}
+								$('#pageUl').append($pageLi);
+							}
+						}else{
+							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '">1</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum=2'+ '">...</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '">'+(currentPage-1)+'</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ currentPage + '" class="current">'+currentPage+'</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '">'+(currentPage+1)+'</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-1) + '">...</a></li>');
+							$('#pageUl').append($pageLi);
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '">'+data.totalPage+'</a></li>');
+							$('#pageUl').append($pageLi);
+						}
+					}
+
+					if(data.list.length > 0){
+						if( currentPage < data.totalPage ){
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '" class="next">Next</a></li>');
+						}else{
+							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '" class="next">Next</a></li>');
+						}
+					}
+
+					$('#pageUl').append($pageLi);
+
+					/*if(data.list.length == 0){
+					 $('#order').hide();
+					 return;
+					 }*/
+
+					for( i=0; i<data.list.length; i++){
+						$subject=$("<td>"+ data.list[i].suject +"</td>");
+						$status=$("<td>"+ data.list[i].status +"</td>");
+						$shipping=$("<td>"+ data.list[i].shipping +"</td>");
+						$orderInfo.append($orderNumber);
+						$orderInfo.append($product);
+						$orderInfo.append($status);
+						$orderInfo.append($shipping);
+						$orderInfo.append($operation);
+
+						$("#listDiv").append($orderInfo);
+					}
+				},
+				error:function(){
+					$.confirm({
+						'title'		: '提示',
+						'message'	: '抱歉，系统错误!',
+						'buttons'	: {
+							'OK': {
+								'class'	: 'gray',
+								'action': function(){}
+							}
+						}
+					});
+				}
+			});
+
+		}
+
+		function logout(){
+			$.confirm({
+				'title'		: '提示',
+				'message'	: '确定要注销当前用户吗？',
+				'buttons'	: {
+					'是'	: {
+						'class'	: 'blue',
+						'action': function(){
+							$.cookie("dissing_user_name", "", {expires: -1});
+							$.cookie("access_token", "", {expires: -1});
+							window.location.reload();
+						}
+					},
+					'否': {
+						'class'	: 'gray',
+						'action': function(){}
+					}
+				}
+			});
+
+		}
+	</script>
 <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
 </body>
 </html>
