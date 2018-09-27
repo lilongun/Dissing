@@ -80,43 +80,6 @@
 
 		</div>
 
-		<script type="text/javascript">
-            if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-                $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
-            }else{
-				/*
-				 $('#loginBox').html('<ul><li class="dropdown">' +
-				 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
-				 '</li></ul>');
-				 */
-                $('#loginBox').html('<a href="mypage.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-                    ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
-                $('#diss').css("display","block");
-            }
-
-            function logout(){
-                $.confirm({
-                    'title'		: '提示',
-                    'message'	: '确定要注销当前用户吗？',
-                    'buttons'	: {
-                        '是'	: {
-                            'class'	: 'blue',
-                            'action': function(){
-                                $.cookie("dissing_user_name", "", {expires: -1});
-                                $.cookie("access_token", "", {expires: -1});
-                                window.location.href = 'index.html';
-                            }
-                        },
-                        '否': {
-                            'class'	: 'gray',
-                            'action': function(){}
-                        }
-                    }
-                });
-
-            }
-		</script>
 		<div class="clear"></div>
 	  </div>
 	</div>
@@ -124,7 +87,48 @@
    	   <div class="main">
    	      <div class="register_account">
           	<div class="wrap">
-    	      <h4 class="title">创建一个新账户</h4>
+    	      <h4 id="title" class="title"></h4>
+
+				<script type="text/javascript">
+                    if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+                        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+                        $('#title').html('创建一个新账户');
+                    }else{
+						/*
+						 $('#loginBox').html('<ul><li class="dropdown">' +
+						 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+						 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+						 '</li></ul>');
+						 */
+                        $('#loginBox').html('<a href="mypage.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                            ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+                        $('#diss').css("display","block");
+                        $('#title').html('修改个人信息');
+                    }
+
+                    function logout(){
+                        $.confirm({
+                            'title'		: '提示',
+                            'message'	: '确定要注销当前用户吗？',
+                            'buttons'	: {
+                                '是'	: {
+                                    'class'	: 'blue',
+                                    'action': function(){
+                                        $.cookie("dissing_user_name", "", {expires: -1});
+                                        $.cookie("access_token", "", {expires: -1});
+                                        window.location.href = 'index.html';
+                                    }
+                                },
+                                '否': {
+                                    'class'	: 'gray',
+                                    'action': function(){}
+                                }
+                            }
+                        });
+
+                    }
+				</script>
+
     		   <form>
     			 <div class="col_1_of_2 span_1_of_2">
 					 <input id="id" type="hidden" />
