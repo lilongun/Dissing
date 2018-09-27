@@ -34,13 +34,35 @@ public class BoardController {
     @RequestMapping(value="/queryPostList", method=RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> queryPostList(@RequestParam(required = false) Integer typeId,
+                                             @RequestParam(required = false) String subject,
                                          @RequestParam(required = false) Integer pageNum){
         PostInfo postInfo = new PostInfo();
+        postInfo.setTypeId(typeId);
+        postInfo.setSubject(subject);
+        int pageSize = 10;
+        if(pageNum == null){
+            pageNum = 1;
+        }
+        postInfo.setBeginPos((pageNum - 1) * pageSize);
+        postInfo.setPageSize(pageSize);
+        return boardService.queryPosts(postInfo);
+    }
+
+    @RequestMapping(value="/queryMyPostList", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryMyPostList(@RequestParam(required = false) Integer typeId,
+                                               @RequestParam(required = false) String subject,
+                                             @RequestParam(required = false) Integer pageNum,
+                                             @RequestParam("access_token") String accessToken){
+        SysUser sysUser = userService.currentUser(accessToken);
+        PostInfo postInfo = new PostInfo();
+        postInfo.setSubject(subject);
         postInfo.setTypeId(typeId);
         int pageSize = 10;
         if(pageNum == null){
             pageNum = 1;
         }
+        postInfo.setOwnerId(sysUser.getId());
         postInfo.setBeginPos((pageNum - 1) * pageSize);
         postInfo.setPageSize(pageSize);
         return boardService.queryPosts(postInfo);

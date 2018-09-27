@@ -236,7 +236,7 @@
 							 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
 							 '</li></ul>');
 							 */
-							$('#loginBox').html('<a href="mypage.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+							$('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
 								' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
 							$('#diss').css("display","block");
 						}
@@ -352,7 +352,7 @@
                                                 'buttons'	: {
                                                     'OK': {
                                                         'class'	: 'gray',
-                                                        'action': function(){window.location.href = 'mypage.html';}
+                                                        'action': function(){window.location.href = 'mypage.jsp';}
                                                     }
                                                 }
                                             });

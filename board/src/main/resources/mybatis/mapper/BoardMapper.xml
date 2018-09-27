@@ -22,10 +22,10 @@
             and type_id = #{typeId}
         </if>
         <if test="subject != null">
-            and subject=#{subject}
+            and subject like concat('%',#{subject},'%')
         </if>
         <if test="content != null">
-            and content=#{content}
+            and content like concat('%',#{content},'%')
         </if>
         order by update_time desc
         limit #{beginPos},#{pageSize}

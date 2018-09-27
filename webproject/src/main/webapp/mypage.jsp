@@ -1,4 +1,11 @@
 <!DOCTYPE HTML>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%
+	String pageNum = request.getParameter("pageNum");
+	if( pageNum == null ){
+		pageNum = "1";
+	}
+%>
 <html>
 <head>
 <title>个人中心</title>
@@ -95,9 +102,164 @@
 				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
 				 '</li></ul>');
 				 */
-                $('#loginBox').html('<a href="mypage.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
                     ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
                 $('#diss').css("display","block");
+
+				$.ajax({
+					url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%>",
+					type: "get",
+					dataType: "json",
+						/*username: "bonzzy",
+						 password: "bonzzy",*/
+					async: false,
+					success:function (data) {
+						currentPage = <%=pageNum%>;
+
+						if(data.list.length > 0){
+							if(currentPage > 1){
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '" class="previous">Previous</a></li>');
+							}else{
+								$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '" class="previous">Previous</a></li>');
+							}
+
+                            $('#pageUl').append($pageLi);
+						}
+
+						if(data.totalPage < 9){
+							for( i=0; i<data.totalPage; i++ ){
+								if(currentPage == i+1){
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+								}else{
+									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+								}
+								$('#pageUl').append($pageLi);
+							}
+						}else{
+							if( currentPage < 6 ){
+								for( i=0; i<6; i++ ){
+									if(currentPage == i+1){
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+									}else{
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+									}
+									$('#pageUl').append($pageLi);
+								}
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-2) + '">...</a></li>');
+								$('#pageUl').append($pageLi);
+								for( i=data.totalPage-2; i<data.totalPage; i++ ){
+									if(currentPage == i+1){
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+									}else{
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+									}
+									$('#pageUl').append($pageLi);
+								}
+							}else if( currentPage > data.totalPage-5 ){
+								for( i=0; i<2; i++ ){
+									if(currentPage == i+1){
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+									}else{
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+									}
+									$('#pageUl').append($pageLi);
+								}
+								$pageLi=$('<li><a href="mypage.jsp?pageNum=3' + '">...</a></li>');
+								$('#pageUl').append($pageLi);
+								for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
+									if(currentPage == i){
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '" class="current">'+i+'</a></li>');
+									}else{
+										$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '">'+i+'</a></li>');
+									}
+									$('#pageUl').append($pageLi);
+								}
+							}else{
+								$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '">1</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum=2'+ '">...</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '">'+(currentPage-1)+'</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ currentPage + '" class="current">'+currentPage+'</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '">'+(currentPage+1)+'</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-1) + '">...</a></li>');
+								$('#pageUl').append($pageLi);
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '">'+data.totalPage+'</a></li>');
+								$('#pageUl').append($pageLi);
+							}
+						}
+
+						if(data.list.length > 0){
+							if( currentPage < data.totalPage ){
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '" class="next">Next</a></li>');
+							}else{
+								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '" class="next">Next</a></li>');
+							}
+						}
+
+						$('#pageUl').append($pageLi);
+
+						/*if(data.list.length == 0){
+						 $('#order').hide();
+						 return;
+						 }*/
+
+						$('#order').show();
+						for( i=0; i<data.list.length; i++){
+							$orderNumber=$("<td>"+ data.list[i].orderNumber +"</td>");
+							//$productModel=$("<td>"+ data.list[i].productModel +"</td>");
+							//$quantity=$("<td>"+ data.list[i].quantity +"</td>");
+							productArray = JSON.parse(data.list[i].product);
+							parseString = '';
+							for( j=0; j<productArray.length; j++ ){
+								parseString += productArray[j].productModel + " : " + productArray[j].quantity;
+								parseString += "<br/>";
+							}
+							$product=$("<td>"+ parseString +"</td>");
+							$status=$("<td>"+ data.list[i].status +"</td>");
+							$shipping=$("<td>"+ data.list[i].shipping +"</td>");
+							$operation=$('<td><a style="color:#A67D3D" href="ordereditor.jsp?id='+ data.list[i].id +'">edit</a><font style="color:#999 !important">/</font><a style="color:#A67D3D" href="javascript:deleteOrder('+ data.list[i].id +')">delete</a></td>');
+							$orderInfo=$("<tr></tr>");
+							$orderInfo.append($orderNumber);
+							//$orderInfo.append($productModel);
+							//$orderInfo.append($quantity);
+							$orderInfo.append($product);
+							$orderInfo.append($status);
+							$orderInfo.append($shipping);
+							$orderInfo.append($operation);
+
+							$("#order").children('tbody').append($orderInfo);
+						}
+
+						$('tbody tr').hover(function() {
+							$(this).addClass('odd');
+						}, function() {
+							$(this).removeClass('odd');
+						});
+
+						$('tbody tr td a').hover(function() {
+							$(this).css('text-decoration','underline');
+						}, function() {
+							$(this).css('text-decoration','none');
+						});
+					},
+					error:function(){
+						$.confirm({
+							'title'		: '提示',
+							'message'	: '抱歉，系统错误!',
+							'buttons'	: {
+								'OK': {
+									'class'	: 'gray',
+									'action': function(){}
+								}
+							}
+						});
+					}
+				});
+
             }
 
             function logout(){
@@ -353,17 +515,8 @@
 					     </div>
 				        <div class="clear"></div> 
 					</div>
-				    <ul class="dc_pagination dc_paginationA dc_paginationA06">
-					    <li><a href="#" class="previous">Previous</a></li>
-					    <li><a href="#">1</a></li>
-					    <li><a href="#" class="current">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li><a href="#">...</a></li>
-					    <li><a href="#">19</a></li>
-					    <li><a href="#">20</a></li>
-					    <li><a href="#" class="next">Next</a></li>
+				    <ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06">
+
 		            </ul>
 		</div>
         <div class="labout span_1_of_g1">
