@@ -107,7 +107,7 @@
 
 					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
 
-				      <div class="section group">
+				      <%--<div class="section group">
 						 <div class="col_1_of_about-box span_1_of_about-box" style="width:65%">
 						   <div class="g_desc">
 			                   <div class="g_1">
@@ -127,7 +127,8 @@
 						  </div>
 
 						  <div class="clear"></div>
-					  </div>
+					  </div>--%>
+
 					<%--<div class="section group">
 						<div class="col_1_of_about-box span_1_of_about-box">
 						   <a class="popup-with-zoom-anim" href="#small-dialog4"><span class="rollover"> </span><img src="images/g4.jpg" title="continue" alt=""/></a>
@@ -290,9 +291,9 @@
 					     </div>
 				        <div class="clear"></div> 
 					</div>--%>
-				    <ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06">
+				    <%--<ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06">
 
-		            </ul>
+		            </ul>--%>
 		</div>
         <div class="labout span_1_of_g1">
 			 <!--<h3>Categories</h3>-->
@@ -346,6 +347,8 @@
 				success:function (data) {
 					currentPage = <%=pageNum%>;
 
+                    $pageUl = $('<ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06"></ul>');
+
 					if(data.list.length > 0){
 						if(currentPage > 1){
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '" class="previous">Previous</a></li>');
@@ -353,7 +356,8 @@
 							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '" class="previous">Previous</a></li>');
 						}
 
-						$('#pageUl').append($pageLi);
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
 					}
 
 					if(data.totalPage < 9){
@@ -363,7 +367,8 @@
 							}else{
 								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
 							}
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 						}
 					}else{
 						if( currentPage < 6 ){
@@ -373,17 +378,20 @@
 								}else{
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
 								}
-								$('#pageUl').append($pageLi);
+								/*$('#pageUl').append($pageLi);*/
+                                $pageUl.append($pageLi);
 							}
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-2) + '">...</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							for( i=data.totalPage-2; i<data.totalPage; i++ ){
 								if(currentPage == i+1){
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
 								}else{
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
 								}
-								$('#pageUl').append($pageLi);
+								/*$('#pageUl').append($pageLi);*/
+                                $pageUl.append($pageLi);
 							}
 						}else if( currentPage > data.totalPage-5 ){
 							for( i=0; i<2; i++ ){
@@ -392,33 +400,43 @@
 								}else{
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
 								}
-								$('#pageUl').append($pageLi);
+								/*$('#pageUl').append($pageLi);*/
+                                $pageUl.append($pageLi);
 							}
 							$pageLi=$('<li><a href="mypage.jsp?pageNum=3' + '">...</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
 								if(currentPage == i){
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '" class="current">'+i+'</a></li>');
 								}else{
 									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '">'+i+'</a></li>');
 								}
-								$('#pageUl').append($pageLi);
+								/*$('#pageUl').append($pageLi);*/
+                                $pageUl.append($pageLi);
 							}
 						}else{
 							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '">1</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum=2'+ '">...</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '">'+(currentPage-1)+'</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ currentPage + '" class="current">'+currentPage+'</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '">'+(currentPage+1)+'</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-1) + '">...</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '">'+data.totalPage+'</a></li>');
-							$('#pageUl').append($pageLi);
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
 						}
 					}
 
@@ -429,8 +447,8 @@
 							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '" class="next">Next</a></li>');
 						}
 					}
-
-					$('#pageUl').append($pageLi);
+					/*$('#pageUl').append($pageLi);*/
+                    $pageUl.append($pageLi);
 
 					/*if(data.list.length == 0){
 					 $('#order').hide();
@@ -438,17 +456,38 @@
 					 }*/
 
 					for( i=0; i<data.list.length; i++){
-                        $subject=$("<td>"+ data.list[i].id +"</td>");
-						$subject=$("<td>"+ data.list[i].suject +"</td>");
-						$status=$("<td>"+ data.list[i].createTime +"</td>");
-						$orderInfo.append($orderNumber);
-						$orderInfo.append($product);
-						$orderInfo.append($status);
-						$orderInfo.append($shipping);
-						$orderInfo.append($operation);
+                    	$section = $('<div class="section group"></div>');
+                        $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:65%"></div>');
+                    	$subjectDesc = $('<div class="g_desc"></div>');
+                        $subjectG1 = $('<div class="g_1"></div>');
+						$subjectH4 = $('<h4 class="no"><a href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
+                        $subjectClear = $('<div class="clear"></div>');
 
-						$("#listDiv").append($orderInfo);
+                        $subjectG1.append($subjectH4);
+                        $subjectDesc.append($subjectG1);
+                        $subjectDesc.append($subjectClear);
+                        $subject.append($subjectDesc);
+                        $section.append($subject);
+
+                        $createTime = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:30%"></div>');
+                        $createTimeDesc = $('<div class="g_desc"></div>');
+                        $createTimeG1 = $('<div class="g_1"></div>');
+                        $createTimeH4 = $('<h4 class="no"><a>' + data.list[i].createTime + '</a></h4>');
+                        $createTimeClear = $('<div class="clear"></div>');
+
+                        $createTimeG1.append($createTimeH4);
+                        $createTimeDesc.append($createTimeG1);
+                        $createTimeDesc.append($createTimeClear);
+                        $createTime.append($createTimeDesc);
+                        $section.append($createTime);
+
+						$clear =  $('<div class="clear"></div>');
+						$section.append($clear);
+
+						$("#listDiv").append($section);
 					}
+
+                    $("#listDiv").append($pageUl);
 				},
 				error:function(){
 					$.confirm({

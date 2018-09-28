@@ -28,7 +28,7 @@ public class PostInfo {
 
     private String content;
 
-    @JsonFormat(timezone = "GTM+8")
+    @JsonFormat(timezone = "GTM+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
     private Date createTime;
 
