@@ -1,4 +1,11 @@
 <!DOCTYPE HTML>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%
+	String pageNum = request.getParameter("pageNum");
+	if( pageNum == null ){
+		pageNum = "1";
+	}
+%>
 <html>
 <head>
 <title>分类浏览</title>
@@ -85,43 +92,7 @@
 
 		</div>
 
-		<script type="text/javascript">
-            if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-                $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
-            }else{
-				/*
-				 $('#loginBox').html('<ul><li class="dropdown">' +
-				 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-				 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
-				 '</li></ul>');
-				 */
-                $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-                    ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
-                $('#diss').css("display","block");
-            }
 
-            function logout(){
-                $.confirm({
-                    'title'		: '提示',
-                    'message'	: '确定要注销当前用户吗？',
-                    'buttons'	: {
-                        '是'	: {
-                            'class'	: 'blue',
-                            'action': function(){
-                                $.cookie("dissing_user_name", "", {expires: -1});
-                                $.cookie("access_token", "", {expires: -1});
-                                window.location.reload();
-                            }
-                        },
-                        '否': {
-                            'class'	: 'gray',
-                            'action': function(){}
-                        }
-                    }
-                });
-
-            }
-		</script>
 		<div class="clear"></div>
 		  </div>	
 		</div>	
@@ -131,8 +102,8 @@
    	       <div class="abstract">
 		   	 <ul class="breadcrumb breadcrumb__t"><a class="home" href="#">Gallery</a>  / About</ul>
 			  <div class="section group">
-				 <div class="cont1 span_2_of_g1">
-				      <div class="section group">
+				 <div id="listDiv" class="cont1 span_2_of_g1">
+				      <%--<div class="section group">
 						<div class="col_1_of_about-box span_1_of_about-box">
 						 <a class="popup-with-zoom-anim" href="#small-dialog"><span class="rollover"> </span><img src="images/g1.jpg" title="continue" alt=""/></a>
 		                     <div id="small-dialog" class="mfp-hide">
@@ -359,7 +330,7 @@
 					    <li><a href="#">19</a></li>
 					    <li><a href="#">20</a></li>
 					    <li><a href="#" class="next">Next</a></li>
-		            </ul>
+		            </ul>--%>
 		</div>
         <div class="labout span_1_of_g1">
 			 <h3>Categories</h3>
@@ -407,10 +378,214 @@
 	<div class="footer">
 	   	<div class="wrap">
 	   		<div class="copy">
-			   <p>Copyright &copy; 2014.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+				Copyright &copy; 2018.dissing.cn All rights reserved.
 		    </div>
 	   	</div>
     </div>
+
+	<script type="text/javascript">
+		if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+			$('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+		}else{
+			/*
+			 $('#loginBox').html('<ul><li class="dropdown">' +
+			 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+			 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+			 '</li></ul>');
+			 */
+			$('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+				' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+			$('#diss').css("display","block");
+		}
+
+        $.ajax({
+            url: "http://localhost:9099/board/queryPostList?&pageNum=<%=pageNum%>",
+            type: "get",
+            dataType: "json",
+			/*username: "bonzzy",
+			 password: "bonzzy",*/
+            async: false,
+            success:function (data) {
+                currentPage = <%=pageNum%>;
+
+                $pageUl = $('<ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06"></ul>');
+
+                if(data.list.length > 0){
+                    if(currentPage > 1){
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (currentPage-1) + '" class="previous">Previous</a></li>');
+                    }else{
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum=1' + '" class="previous">Previous</a></li>');
+                    }
+
+					/*$('#pageUl').append($pageLi);*/
+                    $pageUl.append($pageLi);
+                }
+
+                if(data.totalPage < 9){
+                    for( i=0; i<data.totalPage; i++ ){
+                        if(currentPage == i+1){
+                            $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+                        }else{
+                            $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+                        }
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                    }
+                }else{
+                    if( currentPage < 6 ){
+                        for( i=0; i<6; i++ ){
+                            if(currentPage == i+1){
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+                            }else{
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+                            }
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
+                        }
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (data.totalPage-2) + '">...</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        for( i=data.totalPage-2; i<data.totalPage; i++ ){
+                            if(currentPage == i+1){
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+                            }else{
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+                            }
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
+                        }
+                    }else if( currentPage > data.totalPage-5 ){
+                        for( i=0; i<2; i++ ){
+                            if(currentPage == i+1){
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '" class="current">'+(i+1)+'</a></li>');
+                            }else{
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (i+1) + '">'+(i+1)+'</a></li>');
+                            }
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
+                        }
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum=3' + '">...</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
+                            if(currentPage == i){
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ i + '" class="current">'+i+'</a></li>');
+                            }else{
+                                $pageLi=$('<li><a href="gallery.jsp?pageNum='+ i + '">'+i+'</a></li>');
+                            }
+							/*$('#pageUl').append($pageLi);*/
+                            $pageUl.append($pageLi);
+                        }
+                    }else{
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum=1' + '">1</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum=2'+ '">...</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (currentPage-1) + '">'+(currentPage-1)+'</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ currentPage + '" class="current">'+currentPage+'</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (currentPage+1) + '">'+(currentPage+1)+'</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (data.totalPage-1) + '">...</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ data.totalPage + '">'+data.totalPage+'</a></li>');
+						/*$('#pageUl').append($pageLi);*/
+                        $pageUl.append($pageLi);
+                    }
+                }
+
+                if(data.list.length > 0){
+                    if( currentPage < data.totalPage ){
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ (currentPage+1) + '" class="next">Next</a></li>');
+                    }else{
+                        $pageLi=$('<li><a href="gallery.jsp?pageNum='+ data.totalPage + '" class="next">Next</a></li>');
+                    }
+                }
+				/*$('#pageUl').append($pageLi);*/
+                $pageUl.append($pageLi);
+
+				/*if(data.list.length == 0){
+				 $('#order').hide();
+				 return;
+				 }*/
+
+                for( i=0; i<data.list.length; i++){
+                    $section = $('<div class="section group"></div>');
+                    $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:65%"></div>');
+                    $subjectDesc = $('<div class="g_desc"></div>');
+                    $subjectG1 = $('<div class="g_1"></div>');
+                    $subjectH4 = $('<h4 class="no"><a href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
+                    $subjectClear = $('<div class="clear"></div>');
+
+                    $subjectG1.append($subjectH4);
+                    $subjectDesc.append($subjectG1);
+                    $subjectDesc.append($subjectClear);
+                    $subject.append($subjectDesc);
+                    $section.append($subject);
+
+                    $createTime = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:30%"></div>');
+                    $createTimeDesc = $('<div class="g_desc"></div>');
+                    $createTimeG1 = $('<div class="g_1"></div>');
+                    $createTimeH4 = $('<h4 class="time"><a>' + data.list[i].createTime + '</a></h4>');
+                    $createTimeClear = $('<div class="clear"></div>');
+
+                    $createTimeG1.append($createTimeH4);
+                    $createTimeDesc.append($createTimeG1);
+                    $createTimeDesc.append($createTimeClear);
+                    $createTime.append($createTimeDesc);
+                    $section.append($createTime);
+
+                    $clear =  $('<div class="clear"></div>');
+                    $section.append($clear);
+
+                    $("#listDiv").append($section);
+                }
+
+                $("#listDiv").append($pageUl);
+            },
+            error:function(){
+                $.confirm({
+                    'title'		: '提示',
+                    'message'	: '抱歉，系统错误!',
+                    'buttons'	: {
+                        'OK': {
+                            'class'	: 'gray',
+                            'action': function(){}
+                        }
+                    }
+                });
+            }
+        });
+
+		function logout(){
+			$.confirm({
+				'title'		: '提示',
+				'message'	: '确定要注销当前用户吗？',
+				'buttons'	: {
+					'是'	: {
+						'class'	: 'blue',
+						'action': function(){
+							$.cookie("dissing_user_name", "", {expires: -1});
+							$.cookie("access_token", "", {expires: -1});
+							window.location.reload();
+						}
+					},
+					'否': {
+						'class'	: 'gray',
+						'action': function(){}
+					}
+				}
+			});
+
+		}
+	</script>
 <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
 </body>
 </html>

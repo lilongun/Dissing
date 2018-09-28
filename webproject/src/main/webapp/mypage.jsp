@@ -55,7 +55,7 @@
 								<li id="diss" style="display:none"><a href="posteditor.jsp">发Diss</a></li>
 								<li class="active"><a href="about.html">About</a></li> 
 								<li><a href="blog.html">Blog</a></li> 
-								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="gallery.jsp">Gallery</a></li>
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="404.html">404</a></li>
 							</ul>
@@ -302,7 +302,7 @@
 						<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Abstract</label>
 					</div>-->
 					<div class="col col-4">
-						<!--<a href="gallery.html"><label class="checkbox" style="font-size:17px;color:#999;"><img src="images/r-arrow.png" width="12" height="12" />&nbsp;&lt;!&ndash;<input type="checkbox" name="checkbox"><i></i>&ndash;&gt;Diss列表</label></a>-->
+						<!--<a hrgallery.jsphtml"><label class="checkbox" style="font-size:17px;color:#999;"><img src="images/r-arrow.png" width="12" height="12" />&nbsp;&lt;!&ndash;<input type="checkbox" name="checkbox"><i></i>&ndash;&gt;Diss列表</label></a>-->
 						<a href="register.html"><label class="checkbox" style="font-size:17px;color:#999;"><img src="images/r-arrow.png" width="12" height="12" />&nbsp;<!--<input type="checkbox" name="checkbox"><i></i>-->个人信息</label></a>
 				    </div>
 			</section>

@@ -39,7 +39,7 @@ public class BoardController {
         PostInfo postInfo = new PostInfo();
         postInfo.setTypeId(typeId);
         postInfo.setSubject(subject);
-        int pageSize = 10;
+        int pageSize = 20;
         if(pageNum == null){
             pageNum = 1;
         }
