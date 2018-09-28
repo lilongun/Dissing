@@ -108,7 +108,7 @@
 					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
 
 				      <div class="section group">
-						 <div class="col_1_of_about-box span_1_of_about-box">
+						 <div class="col_1_of_about-box span_1_of_about-box" style="width:65%">
 						   <div class="g_desc">
 			                   <div class="g_1">
 			                   	<h4 class="no"><a href="#">#125846q`111111111111111111111112222222222222222222222222222222222222222221111</a></h4>
@@ -117,7 +117,7 @@
 			               </div>		
 					     </div>
 
-						  <div class="col_1_of_about-box span_1_of_about-box">
+						  <div class="col_1_of_about-box span_1_of_about-box" style="width:30%">
 							  <div class="g_desc">
 								  <div class="g_1">
 									  <h4 class="no"><a href="#">16:16</a></h4>
@@ -321,6 +321,7 @@
 
 	<script type="text/javascript">
 		if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+		    window.location.href = 'index.html';
 			$('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
 		}else{
 			/*
