@@ -438,9 +438,9 @@
 					 }*/
 
 					for( i=0; i<data.list.length; i++){
+                        $subject=$("<td>"+ data.list[i].id +"</td>");
 						$subject=$("<td>"+ data.list[i].suject +"</td>");
-						$status=$("<td>"+ data.list[i].status +"</td>");
-						$shipping=$("<td>"+ data.list[i].shipping +"</td>");
+						$status=$("<td>"+ data.list[i].createTime +"</td>");
 						$orderInfo.append($orderNumber);
 						$orderInfo.append($product);
 						$orderInfo.append($status);
