@@ -5,6 +5,8 @@
 	if( pageNum == null ){
 		pageNum = "1";
 	}
+
+	String typeId = request.getParameter("typeId");
 %>
 <html>
 <head>
@@ -53,9 +55,9 @@
 							<ul>
 								<li><a href="index.html">主页</a></li>
 								<li id="diss" style="display:none"><a href="posteditor.jsp">发Diss</a></li>
+								<li><a href="gallery.jsp">分类</a></li>
 								<li class="active"><a href="about.html">About</a></li> 
-								<li><a href="blog.html">Blog</a></li> 
-								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="blog.html">Blog</a></li>
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="404.html">404</a></li>
 							</ul>
@@ -100,7 +102,7 @@
    	   <div class="main">
    	     <div class="wrap">
    	       <div class="abstract">
-		   	 <ul class="breadcrumb breadcrumb__t"><a class="home" href="#">Gallery</a>  / About</ul>
+			   <ul class="breadcrumb breadcrumb__t"><a class="home" href="gallery.jsp">分类</a>  <%if(typeId != null){%>/ About<%}%></ul>
 			  <div class="section group">
 				 <div id="listDiv" class="cont1 span_2_of_g1">
 				      <%--<div class="section group">
