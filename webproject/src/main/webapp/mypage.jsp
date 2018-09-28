@@ -472,7 +472,7 @@
                         $createTime = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:30%"></div>');
                         $createTimeDesc = $('<div class="g_desc"></div>');
                         $createTimeG1 = $('<div class="g_1"></div>');
-                        $createTimeH4 = $('<h4 class="no"><a>' + data.list[i].createTime + '</a></h4>');
+                        $createTimeH4 = $('<h4 class="time"><a>' + data.list[i].createTime + '</a></h4>');
                         $createTimeClear = $('<div class="clear"></div>');
 
                         $createTimeG1.append($createTimeH4);
