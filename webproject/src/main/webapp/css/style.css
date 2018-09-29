@@ -2100,3 +2100,9 @@ h4.time a{
 h4.time a:hover{
 	text-decoration:none;
 }
+
+.gallery-banner-wrap{
+	width:74%;
+	margin:0 0;
+	padding:0 0 0 0;
+}

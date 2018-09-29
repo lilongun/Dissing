@@ -105,6 +105,19 @@
    	     <div class="wrap">
    	       <div class="abstract">
 			   <ul class="breadcrumb breadcrumb__t"><a class="home" href="gallery.jsp">分类</a>  <%if(typeId != null){%>/ About<%}%></ul>
+
+			   <div class="wmuSlider example1">
+				   <div class="gallery-banner-wrap">
+					   <div class="cont span_2_of_3">
+						   <div class="search_box">
+							   <form method="get" action="gallery.jsp">
+								   <input type="text" id="subject" name="subject" value="热门话题" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '热门话题';}"><input type="submit" value="">
+							   </form>
+						   </div>
+					   </div>
+				   </div>
+			   </div>
+
 			  <div class="section group">
 				 <div id="listDiv" class="cont1 span_2_of_g1">
 				      <%--<div class="section group">
@@ -337,7 +350,7 @@
 		            </ul>--%>
 		</div>
         <div class="labout span_1_of_g1">
-			 <h3>Categories</h3>
+			 <h3>分类</h3>
 			 <section  class="sky-form">
 					<div class="col col-4">
 						<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Abstract</label>
@@ -522,7 +535,7 @@
 
                 for( i=0; i<data.list.length; i++){
                     $section = $('<div class="section group"></div>');
-                    $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:65%"></div>');
+                    $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:59%"></div>');
                     $subjectDesc = $('<div class="g_desc"></div>');
                     $subjectG1 = $('<div class="g_1"></div>');
                     $subjectH4 = $('<h4 class="no"><a href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');

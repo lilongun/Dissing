@@ -5,6 +5,10 @@
 	if( pageNum == null ){
 		pageNum = "1";
 	}
+
+	String typeId = request.getParameter("typeId");
+
+	String subject = request.getParameter("subject");
 %>
 <html>
 <head>
@@ -107,7 +111,20 @@
 
 					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
 
-				      <%--<div class="section group">
+
+					 <div class="wmuSlider example1" style="padding:10px 0 2px 0">
+						 <div class="gallery-banner-wrap">
+							 <div class="cont span_2_of_3">
+								 <div class="search_box">
+									 <form method="get" action="mypage.jsp">
+										 <input type="text" id="subject" name="subject" value="热门话题" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '热门话题';}"><input type="submit" value="">
+									 </form>
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+
+				 <%--<div class="section group">
 						 <div class="col_1_of_about-box span_1_of_about-box" style="width:65%">
 						   <div class="g_desc">
 			                   <div class="g_1">
@@ -338,7 +355,7 @@
 			access_token = $.cookie('access_token');
 
 			$.ajax({
-				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%>",
+				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%>",
 				type: "get",
 				dataType: "json",
 				/*username: "bonzzy",
@@ -457,7 +474,7 @@
 
 					for( i=0; i<data.list.length; i++){
                     	$section = $('<div class="section group"></div>');
-                        $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:65%"></div>');
+                        $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:59%"></div>');
                     	$subjectDesc = $('<div class="g_desc"></div>');
                         $subjectG1 = $('<div class="g_1"></div>');
 						$subjectH4 = $('<h4 class="no"><a href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
