@@ -112,8 +112,8 @@
 					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
 
 
-					 <div class="wmuSlider example1" style="padding:10px 0 2px 0">
-						 <div class="gallery-banner-wrap">
+					 <div class="wmuSlider example1" style="padding:10px 0 10px 0">
+						 <div class="mypage-banner-wrap">
 							 <div class="cont span_2_of_3">
 								 <div class="search_box">
 									 <form method="get" action="mypage.jsp">
