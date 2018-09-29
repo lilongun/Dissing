@@ -535,7 +535,7 @@
 
                 for( i=0; i<data.list.length; i++){
                     $section = $('<div class="section group"></div>');
-                    $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:59%"></div>');
+                    $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:49%"></div>');
                     $subjectDesc = $('<div class="g_desc"></div>');
                     $subjectG1 = $('<div class="g_1"></div>');
                     $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
@@ -547,7 +547,19 @@
                     $subject.append($subjectDesc);
                     $section.append($subject);
 
-                    $createTime = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:30%"></div>');
+                    $username = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:15%"></div>');
+                    $usernameDesc = $('<div class="g_desc"></div>');
+                    $usernameG1 = $('<div class="g_1"></div>');
+                    $usernameH4 = $('<h4 class="no"><a class="nameellipsis" href="' + data.list[i].id + '">' + data.list[i].username + '</a></h4>');
+                    $usernameClear = $('<div class="clear"></div>');
+
+                    $usernameG1.append($usernameH4);
+                    $usernameDesc.append($usernameG1);
+                    $usernameDesc.append($usernameClear);
+                    $username.append($usernameDesc);
+                    $section.append($username);
+
+                    $createTime = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:25%"></div>');
                     $createTimeDesc = $('<div class="g_desc"></div>');
                     $createTimeG1 = $('<div class="g_1"></div>');
                     $createTimeH4 = $('<h4 class="time"><a>' + data.list[i].createTime + '</a></h4>');
@@ -582,7 +594,15 @@
         });
 
         $('.ellipsis').each(function(){
-            var maxwidth=80;
+            var maxwidth=65;
+            if($(this).text().length>maxwidth){
+                $(this).text($(this).text().substring(0,maxwidth));
+                $(this).html($(this).html()+'…');
+            }
+        });
+
+        $('.nameellipsis').each(function(){
+            var maxwidth=15;
             if($(this).text().length>maxwidth){
                 $(this).text($(this).text().substring(0,maxwidth));
                 $(this).html($(this).html()+'…');

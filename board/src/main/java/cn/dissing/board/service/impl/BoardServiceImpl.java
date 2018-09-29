@@ -30,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
         List<PostInfo> list =  boardDao.queryPosts(postInfo);
 
         if(isShowUserName){
-            userService.getPostUserName(list);
+            list = userService.getPostUserName(list);
         }
 
         Map<String, Object> map = new HashMap<String, Object>();
