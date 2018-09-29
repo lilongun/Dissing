@@ -538,7 +538,7 @@
                     $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:59%"></div>');
                     $subjectDesc = $('<div class="g_desc"></div>');
                     $subjectG1 = $('<div class="g_1"></div>');
-                    $subjectH4 = $('<h4 class="no"><a href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
+                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
                     $subjectClear = $('<div class="clear"></div>');
 
                     $subjectG1.append($subjectH4);
@@ -578,6 +578,14 @@
                         }
                     }
                 });
+            }
+        });
+
+        $('.ellipsis').each(function(){
+            var maxwidth=80;
+            if($(this).text().length>maxwidth){
+                $(this).text($(this).text().substring(0,maxwidth));
+                $(this).html($(this).html()+'…');
             }
         });
 
