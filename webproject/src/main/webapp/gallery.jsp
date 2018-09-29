@@ -7,6 +7,8 @@
 	}
 
 	String typeId = request.getParameter("typeId");
+
+	String subject = request.getParameter("subject");
 %>
 <html>
 <head>
@@ -401,7 +403,7 @@
 		}
 
         $.ajax({
-            url: "http://localhost:9099/board/queryPostList?&pageNum=<%=pageNum%>",
+            url: "http://localhost:9099/board/queryPostList?pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%>",
             type: "get",
             dataType: "json",
 			/*username: "bonzzy",
