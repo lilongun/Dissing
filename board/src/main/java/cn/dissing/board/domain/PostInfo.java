@@ -28,6 +28,8 @@ public class PostInfo {
 
     private String content;
 
+    private String username;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
     private Date createTime;

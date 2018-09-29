@@ -16,4 +16,6 @@ public interface SysUserDao{
     int updateUser(SysUser sysUser);
 
     int saveUserRoles(SysUserRoles sysUserRoles);
+
+    String findUserNameById(Integer id);
 }

@@ -159,4 +159,8 @@
                    </if>
               </trim>
           </insert>
+
+          <select id="findUserNameById" resultType="java.lang.String">
+                  select username from sys_user where id=#{id}
+          </select>
 </mapper>

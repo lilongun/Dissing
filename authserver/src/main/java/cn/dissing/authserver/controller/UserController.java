@@ -2,12 +2,14 @@ package cn.dissing.authserver.controller;
 
 import cn.dissing.authserver.domain.SysUser;
 import cn.dissing.authserver.service.UserService;
+import cn.dissing.board.domain.PostInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by lilongyun on 2018/5/10.
@@ -26,6 +28,14 @@ public class UserController {
     public SysUser currentUser(Principal user){
         SysUser sysUser = userService.findOneWithRolesByUsername(user.getName());
         return sysUser;
+    }
+
+    @PostMapping("/getPostUserName")
+    public List<PostInfo> getPostUserName(@RequestBody List<PostInfo> postInfoList){
+        for( PostInfo postInfo : postInfoList ) {
+            postInfo.setUsername(userService.findUserNameById(postInfo.getOwnerId()));
+        }
+        return postInfoList;
     }
 
     @GetMapping("/getBCryptPassword")

@@ -11,4 +11,6 @@ public interface UserService {
     int updateUser(SysUser sysUser);
 
     SysUser findOneWithRolesByUsername(String userName);
+
+    String findUserNameById(Integer id);
 }

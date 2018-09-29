@@ -81,6 +81,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.dissing.board</groupId>
+            <artifactId>cn.dissing.board</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

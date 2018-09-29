@@ -3,6 +3,7 @@ package cn.dissing.board.service.impl;
 import cn.dissing.board.dao.BoardDao;
 import cn.dissing.board.domain.PostInfo;
 import cn.dissing.board.service.BoardService;
+import cn.dissing.board.service.UserService;
 import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,18 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardDao boardDao;
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public Map<String, Object> queryPosts(PostInfo postInfo) {
+    public Map<String, Object> queryPosts(PostInfo postInfo, boolean isShowUserName) {
         Integer count = boardDao.queryPostsCount(postInfo);
         List<PostInfo> list =  boardDao.queryPosts(postInfo);
+
+        if(isShowUserName){
+            userService.getPostUserName(list);
+        }
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("totalPage", count%postInfo.getPageSize()>0 ? count/postInfo.getPageSize()+1 : count/postInfo.getPageSize());
         map.put("list", list);

@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService{
     public SysUser findOneWithRolesByUsername(String userName) {
         return sysUserDao.findOneWithRolesByUsername(userName);
     }
+
+    @Override
+    public String findUserNameById(Integer id) {
+        return sysUserDao.findUserNameById(id);
+    }
 }

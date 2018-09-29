@@ -45,7 +45,7 @@ public class BoardController {
         }
         postInfo.setBeginPos((pageNum - 1) * pageSize);
         postInfo.setPageSize(pageSize);
-        return boardService.queryPosts(postInfo);
+        return boardService.queryPosts(postInfo, true);
     }
 
     @RequestMapping(value="/queryMyPostList", method=RequestMethod.GET)
@@ -65,7 +65,7 @@ public class BoardController {
         postInfo.setOwnerId(sysUser.getId());
         postInfo.setBeginPos((pageNum - 1) * pageSize);
         postInfo.setPageSize(pageSize);
-        return boardService.queryPosts(postInfo);
+        return boardService.queryPosts(postInfo, false);
     }
 
     @RequestMapping(value="/savePost", method=RequestMethod.PUT)

@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by lilongyun on 2018/5/15.
  */
 public interface BoardService {
-    public Map<String, Object> queryPosts(PostInfo postInfo);
+    public Map<String, Object> queryPosts(PostInfo postInfo, boolean isShowUserName);
 
     public int savePost(PostInfo postInfo);
 
