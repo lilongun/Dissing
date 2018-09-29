@@ -52,7 +52,7 @@
 					});
 					window.location.href="404.html";
 				}
-				isAdmin = false;
+				/*isAdmin = false;
 				for( i=0; i<data.authorities.length; i++ ){
 					if(data.authorities[i].authority == 'admin'){
 						isAdmin = true;
@@ -66,12 +66,12 @@
 						//'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
 						'message'	: 'Sorry, you are not a admin, cannot manage orders!"',
 						'buttons'	: {
-							/*'Yes'	: {
+							/!*'Yes'	: {
 								'class'	: 'blue',
 								'action': function(){
 									elem.slideUp();
 								}
-							},*/
+							},*!/
 							'OK': {
 								'class'	: 'gray',
 								'action': function(){}	// Nothing to do in this case. You can as well omit the action property.
@@ -79,7 +79,7 @@
 						}
 					});
 					window.location.href="404.html";
-				}
+				}*/
 				
 				<% 
 				if(id != null && id.trim() != "" ){
