@@ -25,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
         Integer count = boardDao.queryPostsCount(postInfo);
         List<PostInfo> list =  boardDao.queryPosts(postInfo);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("totalPage", count%postInfo.getPageSize()>0 ? count/postInfo.getPageSize()+1 : count/postInfo.getPageSize());
+        map.put("totalPage", count%postInfo.getPageSize() != 0 ? count/postInfo.getPageSize()+1 : count/postInfo.getPageSize());
         map.put("list", list);
         return map;
     }
