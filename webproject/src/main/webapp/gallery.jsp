@@ -567,7 +567,7 @@
                     $username = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:15%"></div>');
                     $usernameDesc = $('<div class="g_desc"></div>');
                     $usernameG1 = $('<div class="g_1"></div>');
-                    $usernameH4 = $('<h4 class="no"><a class="nameellipsis" href="' + data.list[i].id + '">' + data.list[i].username + '</a></h4>');
+                    $usernameH4 = $('<h4 class="no"><a class="nameellipsis" href="personpage.jsp?ownerId=' + data.list[i].ownerId + '">' + data.list[i].username + '</a></h4>');
                     $usernameClear = $('<div class="clear"></div>');
 
                     $usernameG1.append($usernameH4);
