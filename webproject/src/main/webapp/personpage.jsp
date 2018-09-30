@@ -10,6 +10,8 @@
 
 	String ownerId = request.getParameter("ownerId");
 
+	String ownerName = request.getParameter("ownerName");
+
 	String subject = request.getParameter("subject");
 
 	if(ownerId == null || ownerId.trim().equals("")){
@@ -115,7 +117,7 @@
 			  <div class="section group">
 				 <div id="listDiv" class="cont1 span_2_of_g1">
 
-					 <label class="checkbox" style="font-size:17px;color:#999;">我的Diss列表</label>
+					 <label class="checkbox" style="font-size:17px;color:#999;"><%=ownerName%>的Diss列表</label>
 
 
 					 <div class="wmuSlider example1" style="padding:10px 0 10px 0">
@@ -360,7 +362,7 @@
 			access_token = $.cookie('access_token');
 
 			$.ajax({
-				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&ownerId=<%=ownerId%>&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
+				url: "http://localhost:9099/board/queryPostList?access_token="+ access_token +"&ownerId=<%=ownerId%>&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
 				type: "get",
 				dataType: "json",
 				/*username: "bonzzy",

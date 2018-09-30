@@ -37,12 +37,12 @@ public class BoardController {
     @ResponseBody
     public Map<String, Object> queryPostList(@RequestParam(required = false) Integer typeId,
                                              @RequestParam(required = false) String subject,
-                                             @RequestParam(required = false) Integer owernId,
+                                             @RequestParam(required = false) Integer ownerId,
                                          @RequestParam(required = false) Integer pageNum){
         PostInfo postInfo = new PostInfo();
         postInfo.setTypeId(typeId);
         postInfo.setSubject(subject);
-        postInfo.setOwnerId(owernId);
+        postInfo.setOwnerId(ownerId);
         int pageSize = 20;
         if(pageNum == null){
             pageNum = 1;
