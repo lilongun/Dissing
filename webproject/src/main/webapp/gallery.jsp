@@ -540,9 +540,9 @@
                     $subjectG1 = $('<div class="g_1"></div>');
                     $typeName = '';
                     if( data.list[i].typeName != undefined && data.list[i].typeName != null && data.list[i].typeName != '' ){
-                        $typeName = '['+data.list[i].typeName+']';
+                        $typeName = ' ['+data.list[i].typeName+']';
                     }
-                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + $typeName +'</a></h4>');
+                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject +'</a><a href="">'+ $typeName +'</a></h4>');
                     $subjectClear = $('<div class="clear"></div>');
 
                     $subjectG1.append($subjectH4);
@@ -598,7 +598,7 @@
         });
 
         $('.ellipsis').each(function(){
-            var maxwidth=65;
+            var maxwidth=57;
             if($(this).text().length>maxwidth){
                 $(this).text($(this).text().substring(0,maxwidth));
                 $(this).html($(this).html()+'…');
