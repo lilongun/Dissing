@@ -20,6 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/queryCommentList/**").permitAll().antMatchers("/queryPostList/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/queryCategoryList/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

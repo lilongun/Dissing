@@ -1,5 +1,6 @@
 package cn.dissing.board.controller;
 
+import cn.dissing.board.domain.CategoryInfo;
 import cn.dissing.board.domain.PostInfo;
 import cn.dissing.board.domain.SysUser;
 import cn.dissing.board.service.BoardService;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +48,12 @@ public class BoardController {
         postInfo.setBeginPos((pageNum - 1) * pageSize);
         postInfo.setPageSize(pageSize);
         return boardService.queryPosts(postInfo, true);
+    }
+
+    @RequestMapping(value="/queryCategoryList", method=RequestMethod.GET)
+    @ResponseBody
+    public List<CategoryInfo> queryCategoryList(){
+        return boardService.queryCategoryList();
     }
 
     @RequestMapping(value="/queryMyPostList", method=RequestMethod.GET)

@@ -1,5 +1,6 @@
 package cn.dissing.board.service;
 
+import cn.dissing.board.domain.CategoryInfo;
 import cn.dissing.board.domain.PostInfo;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface BoardService {
     public int savePost(PostInfo postInfo);
 
     public int updatePost(PostInfo postInfo);
+
+    public List<CategoryInfo> queryCategoryList();
 }

@@ -53,4 +53,9 @@ public class BoardServiceImpl implements BoardService {
     public int updatePost(PostInfo postInfo) {
         return boardDao.updatePost(postInfo);
     }
+
+    @Override
+    public List<CategoryInfo> queryCategoryList() {
+        return boardDao.queryCategorys();
+    }
 }

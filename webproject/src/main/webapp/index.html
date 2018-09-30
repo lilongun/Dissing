@@ -68,45 +68,6 @@
 				<div id="loginBox" style="float:right;line-height:55px;">
 
 				</div>
-
-				<script type="text/javascript">
-					if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-                        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="register.html"><font size="5px" color="white">注册</font></a>');
-                        $('#diss').css("display","none");
-					}else{
-					    /*
-					    $('#loginBox').html('<ul><li class="dropdown">' +
-							'<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-							'<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
-							'</li></ul>');
-							*/
-                        $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-                            ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
-                        $('#diss').css("display","block");
-                    }
-
-                    function logout(){
-                        $.confirm({
-                            'title'		: '提示',
-                            'message'	: '确定要注销当前用户吗？',
-                            'buttons'	: {
-								'是'	: {
-								 'class'	: 'blue',
-								 'action': function(){
-                                     $.cookie("dissing_user_name", "", {expires: -1});
-                                     $.cookie("access_token", "", {expires: -1});
-                                     window.location.reload();
-								 }
-								 },
-                                '否': {
-                                    'class'	: 'gray',
-                                    'action': function(){}
-                                }
-                            }
-                        });
-
-					}
-				</script>
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -169,8 +130,8 @@
    	   	    <!--<h2 class="m_2">Browse by Category</h2>-->
 			 <h2 class="m_2">分类浏览</h2>
    	   	 	  <div class="wrap">
-   	   	 	  	<div class="section group">
-				<div class="col_1_of_5 span_1_of_5">
+   	   	 	  	<div id="typeGroup" class="section group">
+				<!--<div class="col_1_of_5 span_1_of_5">
 					<ul class="list1">
 					    <li><a href="abstract.html">Abstract</a></li>
 			            <li><a href="abstract.html">Animals/Wildlife</a></li>
@@ -220,11 +181,75 @@
 			            <li><a href="abstract.html">Vintage</a></li>
 		            </ul>
 				</div>
-				<div class="clear"></div>
+				<div class="clear"></div>-->
 			</div>
    	   	   </div>
    	   	 </div>
    	   </div>
+
+	<script type="text/javascript">
+        if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+            $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="register.html"><font size="5px" color="white">注册</font></a>');
+            $('#diss').css("display","none");
+        }else{
+			/*
+			 $('#loginBox').html('<ul><li class="dropdown">' +
+			 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+			 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
+			 '</li></ul>');
+			 */
+            $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+            $('#diss').css("display","block");
+        }
+
+        function logout(){
+            $.confirm({
+                'title'		: '提示',
+                'message'	: '确定要注销当前用户吗？',
+                'buttons'	: {
+                    '是'	: {
+                        'class'	: 'blue',
+                        'action': function(){
+                            $.cookie("dissing_user_name", "", {expires: -1});
+                            $.cookie("access_token", "", {expires: -1});
+                            window.location.reload();
+                        }
+                    },
+                    '否': {
+                        'class'	: 'gray',
+                        'action': function(){}
+                    }
+                }
+            });
+
+        }
+
+        $.ajax({
+            url: "http://localhost:9099/board/queryCategoryList",
+            type: "get",
+            dataType: "json",
+            async: false,
+            success:function (data) {
+                size = (data.length%6 > 0 ? Math.floor(data.length/6+1) : (data.length/6));
+                j = 0;
+                for( i = 0; i < size ; i++ ){
+                    $typeDiv = $('<div class="col_1_of_5 span_1_of_5"></div>');
+                    $typeUl = $('<ul class="list1"></ul>');
+                    for( n=j; n<j+6&&n<data.length; n++) {
+                        $category = $('<li><a href="gallery.jsp?typeId='+ data[n].id +'">'+ data[n].name +'</a></li>');
+                        $typeUl.append($category);
+                    }
+                    j += 6;
+                    $typeDiv.append($typeUl);
+                    $('#typeGroup').append($typeDiv);
+                }
+            }
+        });
+
+        $clear = $('<div class="clear"></div>');
+		$('#typeGroup').append($clear);
+	</script>
 	   <div class="footer">
 	   	<div class="wrap">
 	   		<div class="copy">
