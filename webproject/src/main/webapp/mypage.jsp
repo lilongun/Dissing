@@ -527,7 +527,7 @@
 		}
 
         $('.ellipsis').each(function(){
-            var maxwidth=57;
+            var maxwidth=52;
             if($(this).text().length>maxwidth){
                 $(this).text($(this).text().substring(0,maxwidth));
                 $(this).html($(this).html()+'…');

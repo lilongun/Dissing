@@ -585,9 +585,9 @@
 
 
                 for( i=0; i<data.categoryInfos.length; i++) {
-					$category = $('<a href="gallery.jsp?typeId="'+ data.categoryInfos[i].id +'></a>');
-					$label = $('<label class="checkbox" style="font-size:17px;color:#999;"></label>');
-                    $label.html('<img src="images/r-arrow.png" width="12" height="12" />&nbsp;' + data.categoryInfos[i].name);
+					$category = $('<a href="gallery.jsp?typeId='+ data.categoryInfos[i].id +'"></a>');
+					$label = $('<label class="checkbox" style="font-size:17px;color:#999;padding-left:0px"></label>');
+                    $label.html(data.categoryInfos[i].name);
                     $category.append($label);
                     $('#typeList').append($category);
                 }
@@ -608,7 +608,7 @@
         });
 
         $('.ellipsis').each(function(){
-            var maxwidth=57;
+            var maxwidth=43;
             if($(this).text().length>maxwidth){
                 $(this).text($(this).text().substring(0,maxwidth));
                 $(this).html($(this).html()+'…');
