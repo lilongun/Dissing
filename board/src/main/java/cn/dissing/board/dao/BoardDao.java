@@ -1,5 +1,6 @@
 package cn.dissing.board.dao;
 
+import cn.dissing.board.domain.CategoryInfo;
 import cn.dissing.board.domain.PostInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,4 +19,6 @@ public interface BoardDao {
     public int updatePost(PostInfo postInfo);
 
     public Integer queryPostsCount(PostInfo postInfo);
+
+    public List<CategoryInfo> queryCategorys();
 }

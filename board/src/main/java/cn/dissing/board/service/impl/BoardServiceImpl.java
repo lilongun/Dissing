@@ -1,6 +1,7 @@
 package cn.dissing.board.service.impl;
 
 import cn.dissing.board.dao.BoardDao;
+import cn.dissing.board.domain.CategoryInfo;
 import cn.dissing.board.domain.PostInfo;
 import cn.dissing.board.service.BoardService;
 import cn.dissing.board.service.UserService;
@@ -33,9 +34,11 @@ public class BoardServiceImpl implements BoardService {
             list = userService.getPostUserName(list);
         }
 
+        List<CategoryInfo> categoryInfos = boardDao.queryCategorys();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("totalPage", count%postInfo.getPageSize()>0 ? count/postInfo.getPageSize()+1 : count/postInfo.getPageSize());
         map.put("list", list);
+        map.put("categoryInfos", categoryInfos);
         return map;
     }
 

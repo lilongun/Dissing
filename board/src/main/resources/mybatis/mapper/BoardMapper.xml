@@ -13,6 +13,12 @@
         <result property="isDeleted" column="is_deleted"/>
      </resultMap>
 
+    <resultMap type="cn.dissing.board.domain.CategoryInfo" id="categoryInfo">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+        <id property="parentId" column="parent_id"/>
+    </resultMap>
+
     <select id="queryPosts" resultMap="post">
         select p.id, c.name as type_name, owner_id,type_id,subject,content,create_time,update_time,is_deleted
         from post_info p left join category_info c on p.type_id = c.id where p.is_deleted=0
@@ -104,5 +110,9 @@
         <if test="content != null">
             and content like concat('%',#{content},'%')
         </if>
+    </select>
+
+    <select id="queryCategorys" resultMap="categoryInfo">
+        select id,name,parent_id from category_info
     </select>
 </mapper>

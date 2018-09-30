@@ -352,11 +352,11 @@
         <div class="labout span_1_of_g1">
 			 <h3>分类</h3>
 			 <section  class="sky-form">
-					<div class="col col-4">
+					<%--<div class="col col-4">
 						<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Abstract</label>
-					</div>
-					<div class="col col-4">
-					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Animals/Wildlife</label>
+					</div>--%>
+					<div id="typeList" class="col col-4">
+					   <%--<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Animals/Wildlife</label>
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>The Arts</label>
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Backgrounds/Textures</label>
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Beauty/Fashion</label>
@@ -383,7 +383,7 @@
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Technology</label>
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Transportation</label>
 					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Vectors</label>
-					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Vintage</label>	
+					   <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Vintage</label>	--%>
 				    </div>
 			</section>
 		  </div>
@@ -582,6 +582,16 @@
                 }
 
                 $("#listDiv").append($pageUl);
+
+
+                for( i=0; i<data.categoryInfos.length; i++) {
+					$category = $('<a href="gallery.jsp?typeId="'+ data.categoryInfos[i].id +'></a>');
+					$label = $('<label class="checkbox" style="font-size:17px;color:#999;"></label>');
+                    $label.html('<img src="images/r-arrow.png" width="12" height="12" />&nbsp;' + data.categoryInfos[i].name);
+                    $category.append($label);
+                    $('#typeList').append($category);
+                }
+
             },
             error:function(){
                 $.confirm({
