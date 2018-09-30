@@ -538,7 +538,11 @@
                     $subject = $('<div class="col_1_of_about-box span_1_of_about-box" style="width:49%"></div>');
                     $subjectDesc = $('<div class="g_desc"></div>');
                     $subjectG1 = $('<div class="g_1"></div>');
-                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a></h4>');
+                    $typeName = '';
+                    if( data.list[i].typeName != undefined && data.list[i].typeName != null && data.list[i].typeName != '' ){
+                        $typeName = '['+data.list[i].typeName+']';
+                    }
+                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + $typeName +'</a></h4>');
                     $subjectClear = $('<div class="clear"></div>');
 
                     $subjectG1.append($subjectH4);

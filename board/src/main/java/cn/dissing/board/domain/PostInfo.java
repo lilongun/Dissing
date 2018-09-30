@@ -24,6 +24,8 @@ public class PostInfo {
 
     private Integer typeId;
 
+    private String typeName;
+
     private String subject;
 
     private String content;

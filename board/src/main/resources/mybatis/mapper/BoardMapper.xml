@@ -5,6 +5,7 @@
         <id property="id" column="id"/>
         <result property="ownerId" column="owner_id"/>
          <result property="typeId" column="type_id"/>
+         <result property="typeName" column="type_name"/>
         <result property="subject" column="subject"/>
         <result property="content" column="content"/>
         <result property="createTime" column="create_time"/>
@@ -13,8 +14,8 @@
      </resultMap>
 
     <select id="queryPosts" resultMap="post">
-        select id,owner_id,type_id,subject,content,create_time,update_time,is_deleted
-        from post_info where is_deleted=0
+        select p.id, c.name as type_name, owner_id,type_id,subject,content,create_time,update_time,is_deleted
+        from post_info p left join category_info c on p.type_id = c.id where p.is_deleted=0
         <if test="ownerId != null">
            and owner_id=#{ownerId}
         </if>
