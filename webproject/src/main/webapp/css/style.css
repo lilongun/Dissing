@@ -2112,3 +2112,9 @@ h4.time a:hover{
 	margin:0 0;
 	padding:0 0 0 0;
 }
+
+h4.no span{
+	color:#777;
+	font-size:0.95em;
+	cursor:default;
+}

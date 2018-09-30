@@ -416,13 +416,22 @@
 		}
 
         $.ajax({
-            url: "http://localhost:9099/board/queryPostList?pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%>",
+            url: "http://localhost:9099/board/queryPostList?pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
             type: "get",
             dataType: "json",
 			/*username: "bonzzy",
 			 password: "bonzzy",*/
             async: false,
             success:function (data) {
+
+                for( i=0; i<data.categoryInfos.length; i++) {
+                    $category = $('<a href="gallery.jsp?typeId='+ data.categoryInfos[i].id +'"></a>');
+                    $label = $('<label class="checkbox" style="font-size:17px;color:#999;padding-left:0px"></label>');
+                    $label.html(data.categoryInfos[i].name);
+                    $category.append($label);
+                    $('#typeList').append($category);
+                }
+
                 currentPage = <%=pageNum%>;
 
                 $pageUl = $('<ul id="pageUl" class="dc_pagination dc_paginationA dc_paginationA06"></ul>');
@@ -542,7 +551,7 @@
                     if( data.list[i].typeName != undefined && data.list[i].typeName != null && data.list[i].typeName != '' ){
                         $typeName = ' ['+data.list[i].typeName+']';
                     }
-                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject +'</a><a href="">'+ $typeName +'</a></h4>');
+                    $subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject +'</a><a href="gallery.jsp?typeId='+ data.list[i].typeId +'">'+ $typeName +'</a></h4>');
                     $subjectClear = $('<div class="clear"></div>');
 
                     $subjectG1.append($subjectH4);
@@ -582,15 +591,6 @@
                 }
 
                 $("#listDiv").append($pageUl);
-
-
-                for( i=0; i<data.categoryInfos.length; i++) {
-					$category = $('<a href="gallery.jsp?typeId='+ data.categoryInfos[i].id +'"></a>');
-					$label = $('<label class="checkbox" style="font-size:17px;color:#999;padding-left:0px"></label>');
-                    $label.html(data.categoryInfos[i].name);
-                    $category.append($label);
-                    $('#typeList').append($category);
-                }
 
             },
             error:function(){

@@ -355,7 +355,7 @@
 			access_token = $.cookie('access_token');
 
 			$.ajax({
-				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%>",
+				url: "http://localhost:9099/board/queryMyPostList?access_token="+ access_token +"&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
 				type: "get",
 				dataType: "json",
 				/*username: "bonzzy",
@@ -481,7 +481,7 @@
                         if( data.list[i].typeName != undefined && data.list[i].typeName != null && data.list[i].typeName != '' ){
                             $typeName = ' ['+data.list[i].typeName+']';
                         }
-						$subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a><a href="">'+ $typeName +'</a></h4>');
+						$subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a><span>'+ $typeName +'</span></h4>');
                         $subjectClear = $('<div class="clear"></div>');
 
                         $subjectG1.append($subjectH4);
