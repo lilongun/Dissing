@@ -124,8 +124,10 @@
 						 <div class="mypage-banner-wrap">
 							 <div class="cont span_2_of_3">
 								 <div class="search_box">
-									 <form method="get" action="mypage.jsp">
-										 <input type="text" id="subject" name="subject" value="<%if(subject != null && !subject.trim().equals("")){%><%=subject%><%}else{%>热门话题<%}%>" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '热门话题';}"><input type="submit" value="">
+									 <form method="get" action="personpage.jsp">
+										 <input type="text" id="subject" name="subject" value="<%if(subject != null && !subject.trim().equals("")){%><%=subject%><%}else{%><%}%>" onfocus="this.value = '';" onblur=""><input type="submit" value="">
+										 <input type="hidden" id="ownerId" name="ownerId" value="<%=ownerId%>" />
+										 <input type="hidden" id="ownerName" name="ownerName" value="<%=ownerName%>" />
 									 </form>
 								 </div>
 							 </div>
@@ -375,9 +377,9 @@
 
 					if(data.list.length > 0){
 						if(currentPage > 1){
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="previous">Previous</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (currentPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="previous">Previous</a></li>');
 						}else{
-							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="previous">Previous</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum=1' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="previous">Previous</a></li>');
 						}
 
 						/*$('#pageUl').append($pageLi);*/
@@ -387,9 +389,9 @@
 					if(data.totalPage < 9){
 						for( i=0; i<data.totalPage; i++ ){
 							if(currentPage == i+1){
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
+								$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
 							}else{
-								$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
+								$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
 							}
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
@@ -398,21 +400,21 @@
 						if( currentPage < 6 ){
 							for( i=0; i<6; i++ ){
 								if(currentPage == i+1){
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
 								}else{
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
 								}
 								/*$('#pageUl').append($pageLi);*/
                                 $pageUl.append($pageLi);
 							}
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-2) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (data.totalPage-2) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
 							for( i=data.totalPage-2; i<data.totalPage; i++ ){
 								if(currentPage == i+1){
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
 								}else{
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
 								}
 								/*$('#pageUl').append($pageLi);*/
                                 $pageUl.append($pageLi);
@@ -420,45 +422,45 @@
 						}else if( currentPage > data.totalPage-5 ){
 							for( i=0; i<2; i++ ){
 								if(currentPage == i+1){
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+(i+1)+'</a></li>');
 								}else{
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (i+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(i+1)+'</a></li>');
 								}
 								/*$('#pageUl').append($pageLi);*/
                                 $pageUl.append($pageLi);
 							}
-							$pageLi=$('<li><a href="mypage.jsp?pageNum=3' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum=3' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
 							for( i=data.totalPage-5; i<data.totalPage+1; i++ ){
 								if(currentPage == i){
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+i+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ i + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+i+'</a></li>');
 								}else{
-									$pageLi=$('<li><a href="mypage.jsp?pageNum='+ i + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+i+'</a></li>');
+									$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ i + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+i+'</a></li>');
 								}
 								/*$('#pageUl').append($pageLi);*/
                                 $pageUl.append($pageLi);
 							}
 						}else{
-							$pageLi=$('<li><a href="mypage.jsp?pageNum=1' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">1</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum=1' + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">1</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum=2'+ '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum=2'+ '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(currentPage-1)+'</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (currentPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(currentPage-1)+'</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ currentPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+currentPage+'</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ currentPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="current">'+currentPage+'</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(currentPage+1)+'</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (currentPage+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+(currentPage+1)+'</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (data.totalPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (data.totalPage-1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">...</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+data.totalPage+'</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ data.totalPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>">'+data.totalPage+'</a></li>');
 							/*$('#pageUl').append($pageLi);*/
                             $pageUl.append($pageLi);
 						}
@@ -466,9 +468,9 @@
 
 					if(data.list.length > 0){
 						if( currentPage < data.totalPage ){
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ (currentPage+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="next">Next</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ (currentPage+1) + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="next">Next</a></li>');
 						}else{
-							$pageLi=$('<li><a href="mypage.jsp?pageNum='+ data.totalPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="next">Next</a></li>');
+							$pageLi=$('<li><a href="personpage.jsp?ownerName=<%=ownerName%>&ownerId=<%=ownerId%>&pageNum='+ data.totalPage + '<%if(subject != null && !subject.trim().equals("")){%>&subject=<%=subject%><%}%>" class="next">Next</a></li>');
 						}
 					}
 					/*$('#pageUl').append($pageLi);*/

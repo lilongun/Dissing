@@ -113,7 +113,7 @@
 					   <div class="cont span_2_of_3">
 						   <div class="search_box">
 							   <form method="get" action="gallery.jsp">
-								   <input type="text" id="subject" name="subject" value="<%if(subject != null && !subject.trim().equals("")){%><%=subject%><%}else{%>热门话题<%}%>" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '热门话题';}"><input type="submit" value="">
+								   <input type="text" id="subject" name="subject" value="<%if(subject != null && !subject.trim().equals("")){%><%=subject%><%}else{%><%}%>" onfocus="this.value = '';" onblur=""><input type="submit" value="">
 								   <input type="hidden" id="typeId" name="typeId" value="<%=typeId%>" />
 								   <input type="hidden" id="typeName" name="typeName" value="<%=typeName%>" />
 							   </form>
