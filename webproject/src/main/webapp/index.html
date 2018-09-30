@@ -237,7 +237,7 @@
                     $typeDiv = $('<div class="col_1_of_5 span_1_of_5"></div>');
                     $typeUl = $('<ul class="list1"></ul>');
                     for( n=j; n<j+6&&n<data.length; n++) {
-                        $category = $('<li><a href="gallery.jsp?typeId='+ data[n].id +'">'+ data[n].name +'</a></li>');
+                        $category = $('<li><a href="gallery.jsp?typeId='+ data[n].id +'&typeName='+ data[n].name +'">'+ data[n].name +'</a></li>');
                         $typeUl.append($category);
                     }
                     j += 6;
