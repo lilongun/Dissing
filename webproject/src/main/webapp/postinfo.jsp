@@ -109,7 +109,7 @@
 	<div class="footer">
 	   	<div class="wrap">
 	   		<div class="copy">
-				Copyright &copy; 2018.dissing.cn All rights reserved.
+				<p>Copyright &copy; 2018.dissing.cn All rights reserved.</p>
 		    </div>
 	   	</div>
     </div>
