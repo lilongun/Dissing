@@ -147,7 +147,7 @@
         limit #{beginPos},#{pageSize}
     </select>
 
-    <select id="queryCommentsCount" resultMap="post">
+    <select id="queryCommentsCount" resultType="java.lang.Integer">
         select count(1) from comment_info where 1=1
         <if test="postId != null">
             and post_id = #{postId}

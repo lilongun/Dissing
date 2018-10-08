@@ -11,30 +11,30 @@
 %>
 <html>
 <head>
-<title></title>
+<title><%=subject%></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <script src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="jquery.confirm/jquery.confirm.js"></script>
+<link rel="stylesheet" type="text/css" href="jquery.confirm/jquery.confirm.css" />
 </head>
 <body>
 <script type="text/javascript">
 	//Ajax调用处理
 	$(document).ready(function(){
 		$.ajax({
-			url: "http://localhost:9099/board/queryQualityCheck/<%=id%>",
+			url: "http://localhost:9099/board/queryPostInfo/<%=id%>",
 			type: "get",  
-			dataType: "text",
-			success: function(ret){  
-				if(ret == null || ret == ''){
-					$('#qualityCheckDiv').html('<font size="5">Sorry, there is not the order information!</font>');
-				}else{
-					$('#qualityCheckDiv').html('<font size="5">Quality Check for Order <%=id%></font>' + ret);
-				}
+			dataType: "json",
+			success: function(ret){
+			    $('#qualityCheckDiv').html('<font size="5"><%=subject%></font>' + ret.content);
 			},
 			error: function(err){
-				alert('sorry, here is error!');
+				alert('抱歉, 系统错误!');
 			}
 		});  
 	});//页面加载
@@ -45,6 +45,7 @@
 	<div class="wrap">
    		<div class="logo">
 			<!--<a href="index.html"><img src="images/logo.png" alt=""/></a>-->
+			<font size="6px" color="white">Dissing</font>
 		</div>	
 		<div class="menu">																
 			<a href="#" class="right_bt" id="activator"><img src="images/nav_icon.png" alt=""></a>
@@ -87,9 +88,13 @@
 									
 									});
 							</script>
-			         </div> 	
-			         <div class="clear"></div>		
-		  </div>	
+			         </div>
+
+		<div id="loginBox" style="float:right;line-height:55px;">
+
+		</div>
+		<div class="clear"></div>
+	</div>
 		</div>	
 	   </div>
    	   <div class="main">
@@ -104,10 +109,21 @@
 	<div class="footer">
 	   	<div class="wrap">
 	   		<div class="copy">
-			   <p>Copyright &copy; 2018.Bonzzy All rights reserved.</p>
+				Copyright &copy; 2018.dissing.cn All rights reserved.
 		    </div>
 	   	</div>
     </div>
+
+<script type="text/javascript">
+    if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
+        $('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
+    }else {
+        $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+            ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+
+        access_token = $.cookie('access_token');
+    }
+</script>
 <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
 </body>
 </html>
