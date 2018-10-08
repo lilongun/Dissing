@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,10 +69,14 @@ public class BoardServiceImpl implements BoardService {
         List<CommentInfo> commentInfolist =  boardDao.queryComments(commentInfo);
         Integer count = boardDao.queryCommentsCount(commentInfo);
 
+        List<PostInfo> list = new ArrayList<PostInfo>();
+        list.add(postInfo);
+        list = userService.getPostUserName(list);
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("totalPage", count%commentInfo.getPageSize()>0 ? count/commentInfo.getPageSize()+1 : count/commentInfo.getPageSize());
         map.put("commentInfolist", commentInfolist);
-        map.put("postInfo", postInfo);
+        map.put("postInfo", list.get(0));
         return map;
     }
 }

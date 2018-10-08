@@ -1,5 +1,6 @@
 <!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 <% 
 	String id = request.getParameter("id");
 
@@ -31,10 +32,23 @@
 			type: "get",  
 			dataType: "json",
 			success: function(ret){
-			    $('#qualityCheckDiv').html('<font size="5"><%=subject%></font>' + ret.content);
+			    $('#contentDiv').html('<font size="5"><%=subject%></font>'+
+					'<font color="#777" size="6">' + ret.postInfo.content + '</font>' +
+					'<div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.postInfo.ownerId + '&ownerName='+ ret.postInfo.username +'">'+ ret.postInfo.username + "</a> | "+ ret.postInfo.createTime +' <a href="#cke_1_contents">评论</a></font></div>');
 			},
 			error: function(err){
-				alert('抱歉, 系统错误!');
+                $.confirm({
+                    'title'		: '提示',
+                    'message'	: '抱歉，系统错误！',
+                    'buttons'	: {
+                        'OK'	: {
+                            'class'	: 'gray',
+                            'action': function(){
+
+                            }
+                        }
+                    }
+                });
 			}
 		});  
 	});//页面加载
@@ -45,7 +59,9 @@
 	<div class="wrap">
    		<div class="logo">
 			<!--<a href="index.html"><img src="images/logo.png" alt=""/></a>-->
-			<font size="6px" color="white">Dissing</font>
+			<a href="index.html">
+				<font size="6px" color="white">Dissing</font>
+			</a>
 		</div>	
 		<div class="menu">																
 			<a href="#" class="right_bt" id="activator"><img src="images/nav_icon.png" alt=""></a>
@@ -101,8 +117,23 @@
    	     <div class="wrap">
    	       <div class="abstract">
 			  <div style="text-align:center" class="section group">
-				   <div id="qualityCheckDiv"></div>
+				   <div id="contentDiv"></div>
 			  </div>
+			   <br />
+			   <hr />
+			   <div class="quality-area">
+				   <form>
+					   <input type="hidden" id="id" >
+					   <p>
+						   <label style="font-size:1.4em;padding-bottom:10px">评论内容</label>
+						   <textarea id="content" name="editor"></textarea>
+					   </p>
+					   <p>
+						   <input id="submitOrder" type="button" value="发表">
+					   </p>
+				   </form>
+				   <ckeditor:replace replace="content" basePath="ckeditor/" />
+			   </div>
 		   </div>
 		 </div>
 	   </div>		   	
@@ -122,6 +153,27 @@
             ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
 
         access_token = $.cookie('access_token');
+    }
+
+    function logout(){
+        $.confirm({
+            'title'		: '提示',
+            'message'	: '确定要注销当前用户吗？',
+            'buttons'	: {
+                '是'	: {
+                    'class'	: 'blue',
+                    'action': function(){
+                        $.cookie("dissing_user_name", "", {expires: -1});
+                        $.cookie("access_token", "", {expires: -1});
+                        window.location.reload();
+                    }
+                },
+                '否': {
+                    'class'	: 'gray',
+                    'action': function(){}
+                }
+            }
+        });
     }
 </script>
 <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
