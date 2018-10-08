@@ -489,7 +489,7 @@
                         if( data.list[i].typeName != undefined && data.list[i].typeName != null && data.list[i].typeName != '' ){
                             $typeName = ' ['+data.list[i].typeName+']';
                         }
-						$subjectH4 = $('<h4 class="no"><a class="ellipsis" href="' + data.list[i].id + '">' + data.list[i].subject + '</a><span>'+ $typeName +'</span></h4>');
+						$subjectH4 = $('<h4 class="no"><a target="_blank" class="ellipsis" href="postinfo.jsp?id=' + data.list[i].id + '&subject='+ data.list[i].subject +'">' + data.list[i].subject + '</a><span>'+ $typeName +'</span></h4>');
                         $subjectClear = $('<div class="clear"></div>');
 
                         $subjectG1.append($subjectH4);

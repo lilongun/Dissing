@@ -17,4 +17,6 @@ public interface BoardService {
     public int updatePost(PostInfo postInfo);
 
     public List<CategoryInfo> queryCategoryList();
+
+    public Map<String, Object> queryPostInfo(Integer id);
 }

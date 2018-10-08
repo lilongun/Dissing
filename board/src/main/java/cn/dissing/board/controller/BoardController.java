@@ -52,6 +52,12 @@ public class BoardController {
         return boardService.queryPosts(postInfo, true);
     }
 
+    @RequestMapping(value="/queryPostInfo/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryPostInfo(@PathVariable("id") Integer id){
+        return boardService.queryPostInfo(id);
+    }
+
     @RequestMapping(value="/queryCategoryList", method=RequestMethod.GET)
     @ResponseBody
     public List<CategoryInfo> queryCategoryList(){
