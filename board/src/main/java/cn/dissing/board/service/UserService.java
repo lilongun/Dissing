@@ -21,4 +21,7 @@ public interface UserService {
 
     @PostMapping("/getPostUserName")
     public List<PostInfo> getPostUserName(@RequestBody List<PostInfo> postInfoList);
+
+    @GetMapping("/getUserInfoById")
+    public SysUser getUserInfoById(@RequestParam("id") Integer id);
 }

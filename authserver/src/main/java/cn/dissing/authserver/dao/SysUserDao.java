@@ -18,4 +18,6 @@ public interface SysUserDao{
     int saveUserRoles(SysUserRoles sysUserRoles);
 
     String findUserNameById(Integer id);
+
+    SysUser getUserInfoById(Integer id);
 }

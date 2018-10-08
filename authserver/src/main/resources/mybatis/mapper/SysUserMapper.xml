@@ -163,4 +163,8 @@
           <select id="findUserNameById" resultType="java.lang.String">
                   select username from sys_user where id=#{id}
           </select>
+
+          <select id="getUserInfoById" resultMap="sysUser">
+                  select id,username,phone_number,nick_name,email,address,image_url from sys_user where id=#{id}
+          </select>
 </mapper>

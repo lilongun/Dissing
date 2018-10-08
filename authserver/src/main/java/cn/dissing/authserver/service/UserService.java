@@ -13,4 +13,6 @@ public interface UserService {
     SysUser findOneWithRolesByUsername(String userName);
 
     String findUserNameById(Integer id);
+
+    SysUser getUserInfoById(Integer id);
 }

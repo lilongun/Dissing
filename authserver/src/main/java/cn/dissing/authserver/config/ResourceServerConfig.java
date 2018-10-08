@@ -23,6 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
                 .authorizeRequests().antMatchers("/registerUser").permitAll()
                 .antMatchers("/currentUser").permitAll()
                 .antMatchers("/getPostUserName").permitAll()
+                .antMatchers("/getUserInfoById/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

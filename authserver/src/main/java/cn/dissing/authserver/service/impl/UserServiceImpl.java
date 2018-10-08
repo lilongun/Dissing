@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService{
     public String findUserNameById(Integer id) {
         return sysUserDao.findUserNameById(id);
     }
+
+    @Override
+    public SysUser getUserInfoById(Integer id) {
+        return sysUserDao.getUserInfoById(id);
+    }
 }

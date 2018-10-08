@@ -30,6 +30,12 @@ public class UserController {
         return sysUser;
     }
 
+    @GetMapping("/getUserInfoById/{id}")
+    public SysUser getUserInfoById(@PathVariable("id") Integer id){
+        SysUser sysUser = userService.getUserInfoById(id);
+        return sysUser;
+    }
+
     @PostMapping("/getPostUserName")
     public List<PostInfo> getPostUserName(@RequestBody List<PostInfo> postInfoList){
         for( PostInfo postInfo : postInfoList ) {

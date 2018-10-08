@@ -14,13 +14,13 @@
 
 	String subject = request.getParameter("subject");
 
-	if(ownerId == null || ownerId.trim().equals("")){
+	if(ownerName == null || ownerName.trim().equals("") || ownerId == null || ownerId.trim().equals("")){
 	    response.sendRedirect("gallery.jsp");
 	}
 %>
 <html>
 <head>
-<title>个人中心</title>
+<title><%=ownerName%>的个人中心</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -329,7 +329,7 @@
 						<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Abstract</label>
 					</div>-->
 					<div class="col col-4">
-
+						<a href="personinfo.jsp?ownerId=<%=ownerId%>&ownerName=<%=ownerName%>"><label class="checkbox" style="font-size:17px;color:#999;"><img src="images/r-arrow.png" width="12" height="12" />&nbsp;<!--<input type="checkbox" name="checkbox"><i></i>-->个人信息</label></a>
 				    </div>
 			</section>
 		  </div>
@@ -348,23 +348,22 @@
 
 	<script type="text/javascript">
 		if( $.cookie("dissing_user_name") == null || $.cookie("access_token") == null ) {
-		    window.location.href = 'index.html';
 			$('#loginBox').html('<a href="login.html"><font size="5px" color="white">登录</font></a>');
-		}else{
+		}else {
 			/*
 			 $('#loginBox').html('<ul><li class="dropdown">' +
 			 '<a href="register.html"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
 			 '<ul> <li><a href="#"><font size="4px" color="white">注销</font></a></li></ul>' +
 			 '</li></ul>');
 			 */
-			$('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
-				' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
-			$('#diss').css("display","block");
+            $('#loginBox').html('<a href="mypage.jsp"><font size="5px" color="white">' + $.cookie("dissing_user_name") + '</font></a>' +
+                ' <font color="white">[</font><a href="javascript:logout()"><font size="5px" color="white">注销</font></a><font color="white">]</font>');
+            $('#diss').css("display", "block");
 
-			access_token = $.cookie('access_token');
-
+            //access_token = $.cookie('access_token');
+        }
 			$.ajax({
-				url: "http://localhost:9099/board/queryPostList?access_token="+ access_token +"&ownerId=<%=ownerId%>&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
+				url: "http://localhost:9099/board/queryPostList?&ownerId=<%=ownerId%>&pageNum=<%=pageNum%><% if( subject != null && !subject.trim().equals("") ){%>&subject=<%=subject%><%}%><% if( typeId != null && !typeId.trim().equals("") ){%>&typeId=<%=typeId%><%}%>",
 				type: "get",
 				dataType: "json",
 				/*username: "bonzzy",
@@ -532,8 +531,6 @@
 					});
 				}
 			});
-
-		}
 
         $('.ellipsis').each(function(){
             var maxwidth=52;
