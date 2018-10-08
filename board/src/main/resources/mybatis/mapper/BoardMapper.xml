@@ -140,9 +140,6 @@
         <if test="ownerId != null">
             and owner_id=#{ownerId}
         </if>
-        <if test="typeId != null">
-            and type_id = #{typeId}
-        </if>
         <if test="content != null">
             and content like concat('%',#{content},'%')
         </if>
@@ -157,9 +154,6 @@
         </if>
         <if test="ownerId != null">
             and owner_id=#{ownerId}
-        </if>
-        <if test="typeId != null">
-            and type_id = #{typeId}
         </if>
         <if test="content != null">
             and content like concat('%',#{content},'%')
