@@ -33,7 +33,7 @@
 			dataType: "json",
 			success: function(ret){
 			    $('#contentDiv').html('<font size="5"><%=subject%></font>'+
-					'<font color="#777" size="6">' + ret.postInfo.content + '</font>' +
+					'<font color="#777" size="4">' + ret.postInfo.content + '</font>' +
 					'<div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.postInfo.ownerId + '&ownerName='+ ret.postInfo.username +'">'+ ret.postInfo.username + "</a> | "+ ret.postInfo.createTime +' <a href="#cke_1_contents">评论</a></font></div>');
 			},
 			error: function(err){
