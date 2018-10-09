@@ -97,6 +97,6 @@ public class BoardServiceImpl implements BoardService {
             }
             return children;
         }
-        return null;
+        return new ArrayList<CommentInfo>();
     }
 }

@@ -49,8 +49,20 @@ public class UserController {
     public List<CommentInfo> getCommentUserName(@RequestBody List<CommentInfo> commentInfoList){
         for( CommentInfo commentInfo : commentInfoList ) {
             commentInfo.setUsername(userService.findUserNameById(commentInfo.getOwnerId()));
+            if( commentInfo.getChildren() != null ) {
+                setChildrenUsername(commentInfo.getChildren());
+            }
         }
         return commentInfoList;
+    }
+
+    private void setChildrenUsername(List<CommentInfo> children){
+        for( CommentInfo commentInfo : children ){
+            commentInfo.setUsername(userService.findUserNameById(commentInfo.getOwnerId()));
+            if( commentInfo.getChildren() != null ){
+                setChildrenUsername(commentInfo.getChildren());
+            }
+        }
     }
 
     @GetMapping("/getBCryptPassword")

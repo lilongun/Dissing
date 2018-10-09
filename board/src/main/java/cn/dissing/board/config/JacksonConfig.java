@@ -31,4 +31,8 @@ public class JacksonConfig {
         });
         return objectMapper;
     }
+
+    @Bean public ObjectMapper serializingObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper(); objectMapper.findAndRegisterModules(); return objectMapper;
+    }
 }
