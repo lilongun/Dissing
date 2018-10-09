@@ -2,6 +2,7 @@ package cn.dissing.authserver.controller;
 
 import cn.dissing.authserver.domain.SysUser;
 import cn.dissing.authserver.service.UserService;
+import cn.dissing.board.domain.CommentInfo;
 import cn.dissing.board.domain.PostInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
@@ -42,6 +43,14 @@ public class UserController {
             postInfo.setUsername(userService.findUserNameById(postInfo.getOwnerId()));
         }
         return postInfoList;
+    }
+
+    @PostMapping("/getCommentUserName")
+    public List<CommentInfo> getCommentUserName(@RequestBody List<CommentInfo> commentInfoList){
+        for( CommentInfo commentInfo : commentInfoList ) {
+            commentInfo.setUsername(userService.findUserNameById(commentInfo.getOwnerId()));
+        }
+        return commentInfoList;
     }
 
     @GetMapping("/getBCryptPassword")

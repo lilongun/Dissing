@@ -77,6 +77,8 @@ public class BoardServiceImpl implements BoardService {
         list.add(postInfo);
         list = userService.getPostUserName(list);
 
+        commentInfolist = userService.getCommentUserName(commentInfolist);
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("totalPage", count%commentInfo.getPageSize()>0 ? count/commentInfo.getPageSize()+1 : count/commentInfo.getPageSize());
         map.put("commentInfolist", commentInfolist);

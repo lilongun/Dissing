@@ -1,5 +1,6 @@
 package cn.dissing.board.service;
 
+import cn.dissing.board.domain.CommentInfo;
 import cn.dissing.board.domain.PostInfo;
 import cn.dissing.board.domain.SysUser;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -21,6 +22,9 @@ public interface UserService {
 
     @PostMapping("/getPostUserName")
     public List<PostInfo> getPostUserName(@RequestBody List<PostInfo> postInfoList);
+
+    @PostMapping("/getCommentUserName")
+    public List<CommentInfo> getCommentUserName(@RequestBody List<CommentInfo> commentInfoList);
 
     @GetMapping("/getUserInfoById")
     public SysUser getUserInfoById(@RequestParam("id") Integer id);
