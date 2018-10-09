@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.stream.events.Comment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,11 +80,32 @@ public class BoardServiceImpl implements BoardService {
 
         commentInfolist = userService.getCommentUserName(commentInfolist);
 
+        //重新拼接子评论
+        for( CommentInfo comment : commentInfolist ) {
+            List<CommentInfo> children = new ArrayList<CommentInfo>();
+            if( comment.getChildren() != null && comment.getChildren().size() > 0 ){
+                getAllChildren(comment.getChildren(), children);
+                for( CommentInfo child : children ){
+                    child.setChildren(new ArrayList<CommentInfo>());
+                }
+                comment.setChildren(children);
+            }
+        }
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("totalPage", count%commentInfo.getPageSize()>0 ? count/commentInfo.getPageSize()+1 : count/commentInfo.getPageSize());
         map.put("commentInfolist", commentInfolist);
         map.put("postInfo", list.get(0));
         return map;
+    }
+
+    private void getAllChildren(List<CommentInfo> commentInfolist, List<CommentInfo> children){
+        for( CommentInfo comment : commentInfolist ){
+            children.add(comment);
+            if( comment.getChildren() != null && comment.getChildren().size() > 0 ){
+                getAllChildren(comment.getChildren(), children);
+            }
+        }
     }
 
     private List<CommentInfo> getChildrenCommentInfos(Integer parentId){
