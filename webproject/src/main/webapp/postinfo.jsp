@@ -44,7 +44,7 @@
                         if( ret.commentInfolist[i].children != null && ret.commentInfolist[i].children != undefined && ret.commentInfolist[i].children.length > 0 ) {
                             postInfoDiv += '<div>';
                             for (j = 0; j < ret.commentInfolist[i].children.length; j++) {
-                                postInfoDiv += '<br /><hr /><font color="#777" size="4">' + ret.commentInfolist[i].children[j].content + '</font>';
+                                postInfoDiv += '<br /><hr width="80%" align="right" /><font color="#777" size="3">' + ret.commentInfolist[i].children[j].content + '</font>';
                                 parentString = '';
                                 if( ret.commentInfolist[i].children[j].parentUsername != null && ret.commentInfolist[i].children[j].parentUsername != undefined ){
                                     parentString += ' 回复 ' + '<font><a target="_blank" href="personpage.jsp?ownerId=' + ret.commentInfolist[i].children[j].parentOwnerId + '&ownerName='+ ret.commentInfolist[i].children[j].parentUsername +'">'+ ret.commentInfolist[i].children[j].parentUsername + '</a>';
