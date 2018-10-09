@@ -36,6 +36,8 @@ public class CommentInfo implements Serializable{
 
     private String parentUsername;
 
+    private Integer parentOwnerId;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
     private Date createTime;

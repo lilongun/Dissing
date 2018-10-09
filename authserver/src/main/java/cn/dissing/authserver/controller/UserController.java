@@ -50,18 +50,19 @@ public class UserController {
         for( CommentInfo commentInfo : commentInfoList ) {
             commentInfo.setUsername(userService.findUserNameById(commentInfo.getOwnerId()));
             if( commentInfo.getChildren() != null ) {
-                setChildrenUsername(commentInfo.getChildren(), commentInfo.getUsername());
+                setChildrenUsername(commentInfo.getChildren(), commentInfo.getUsername(), commentInfo.getOwnerId());
             }
         }
         return commentInfoList;
     }
 
-    private void setChildrenUsername(List<CommentInfo> children, String parentUsername){
+    private void setChildrenUsername(List<CommentInfo> children, String parentUsername, Integer parentOwnerId){
         for( CommentInfo commentInfo : children ){
             commentInfo.setUsername(userService.findUserNameById(commentInfo.getOwnerId()));
             commentInfo.setParentUsername(parentUsername);
+            commentInfo.setParentOwnerId(parentOwnerId);
             if( commentInfo.getChildren() != null ){
-                setChildrenUsername(commentInfo.getChildren(), commentInfo.getUsername());
+                setChildrenUsername(commentInfo.getChildren(), commentInfo.getUsername(), commentInfo.getOwnerId());
             }
         }
     }

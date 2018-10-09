@@ -41,7 +41,20 @@
                     for( i=0; i<ret.commentInfolist.length; i++ ){
                         postInfoDiv += '<br /><hr /><font color="#777" size="4">' + ret.commentInfolist[i].content + '</font>';
                         postInfoDiv += '<br /><div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.commentInfolist[i].ownerId + '&ownerName='+ ret.commentInfolist[i].username +'">'+ ret.commentInfolist[i].username + '</a> | '+ ret.commentInfolist[i].createTime +' <a href="#cke_1_contents">评论</a></font></div>';
-					}
+                        if( ret.commentInfolist[i].children != null && ret.commentInfolist[i].children != undefined && ret.commentInfolist[i].children.length > 0 ) {
+                            postInfoDiv += '<div>';
+                            for (j = 0; j < ret.commentInfolist[i].children.length; j++) {
+                                postInfoDiv += '<br /><hr /><font color="#777" size="4">' + ret.commentInfolist[i].children[j].content + '</font>';
+                                parentString = '';
+                                if( ret.commentInfolist[i].children[j].parentUsername != null && ret.commentInfolist[i].children[j].parentUsername != undefined ){
+                                    parentString += ' 回复 ' + '<font><a target="_blank" href="personpage.jsp?ownerId=' + ret.commentInfolist[i].children[j].parentOwnerId + '&ownerName='+ ret.commentInfolist[i].children[j].parentUsername +'">'+ ret.commentInfolist[i].children[j].parentUsername + '</a>';
+								}
+                                postInfoDiv += '<br /><div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.commentInfolist[i].children[j].ownerId + '&ownerName='+ ret.commentInfolist[i].children[j].username +'">'+ ret.commentInfolist[i].children[j].username + '</a>'+ parentString + ' | '+ ret.commentInfolist[i].children[j].createTime +' <a href="#cke_1_contents">评论</a></font></div>';
+                            }
+                            postInfoDiv += '</div>';
+                        }
+                    }
+
                     $('#contentDiv').html(postInfoDiv);
 				}
 			},
