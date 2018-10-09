@@ -35,6 +35,15 @@
 			    $('#contentDiv').html('<font size="5"><%=subject%></font>'+
 					'<font color="#777" size="4">' + ret.postInfo.content + '</font>' +
 					'<div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.postInfo.ownerId + '&ownerName='+ ret.postInfo.username +'">'+ ret.postInfo.username + "</a> | "+ ret.postInfo.createTime +' <a href="#cke_1_contents">评论</a></font></div>');
+
+			    if( ret.commentInfolist != null && ret.commentInfolist != undefined ){
+                    postInfoDiv = $('#contentDiv').html();
+                    for( i=0; i<ret.commentInfolist.length; i++ ){
+                        postInfoDiv += '<hr /><font color="#777" size="4">' + ret.commentInfolist[i].content + '</font>';
+                        postInfoDiv += '<div style="float:right"><font><a target="_blank" href="personpage.jsp?ownerId=' + ret.commentInfolist[i].ownerId + '&ownerName='+ ret.commentInfolist[i].username +'">'+ ret.commentInfolist[i].username + "</a> | "+ ret.commentInfolist[i].createTime +' <a href="#cke_1_contents">评论</a></font></div>';
+					}
+                    $('#contentDiv').html(postInfoDiv);
+				}
 			},
 			error: function(err){
                 $.confirm({
