@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lilongyun on 2018/4/30.
@@ -36,6 +37,8 @@ public class CommentInfo {
     private Date updateTime;
 
     private Boolean isDeleted;
+
+    private List<CommentInfo> children;
 
     private int beginPos = 0;
 

@@ -69,6 +69,10 @@ public class BoardServiceImpl implements BoardService {
         List<CommentInfo> commentInfolist =  boardDao.queryComments(commentInfo);
         Integer count = boardDao.queryCommentsCount(commentInfo);
 
+        for( CommentInfo comment : commentInfolist ){
+            comment.setChildren(getChildrenCommentInfos(comment.getId()));
+        }
+
         List<PostInfo> list = new ArrayList<PostInfo>();
         list.add(postInfo);
         list = userService.getPostUserName(list);
@@ -78,5 +82,19 @@ public class BoardServiceImpl implements BoardService {
         map.put("commentInfolist", commentInfolist);
         map.put("postInfo", list.get(0));
         return map;
+    }
+
+    private List<CommentInfo> getChildrenCommentInfos(Integer parentId){
+        CommentInfo commentInfo = new CommentInfo();
+        commentInfo.setParentId(parentId);
+        Integer count = boardDao.queryCommentsCount(commentInfo);
+        if( count > 0 ){
+            List<CommentInfo> children = boardDao.queryComments(commentInfo);
+            for( CommentInfo comment : children ){
+                comment.setChildren(getChildrenCommentInfos(comment.getId()));
+            }
+            return children;
+        }
+        return null;
     }
 }

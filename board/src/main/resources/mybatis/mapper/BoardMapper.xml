@@ -143,6 +143,9 @@
         <if test="content != null">
             and content like concat('%',#{content},'%')
         </if>
+        <if test="parentId != null">
+            and parent_id=#{parentId}
+        </if>
         order by update_time desc
         limit #{beginPos},#{pageSize}
     </select>
@@ -157,6 +160,9 @@
         </if>
         <if test="content != null">
             and content like concat('%',#{content},'%')
+        </if>
+        <if test="parentId != null">
+            and parent_id=#{parentId}
         </if>
     </select>
 </mapper>
